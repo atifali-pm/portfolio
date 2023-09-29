@@ -328,7 +328,7 @@ export const experiences = [
 export const education = [
     {
         id: 0,
-        img: "https://firebasestorage.googleapis.com/v0/b/flexi-coding.appspot.com/o/Kiit.jpeg?alt=media&token=3839d520-c59d-4341-ad8f-0980c98de4dd",
+        img: "https://crystalpng.com/wp-content/uploads/2022/06/bahria-university-logo.png",
         school: "Bahria University | islamabad, Islamabad Capital Territory",
         date: "Sep 2002 - Mar 2005",
         grade: "3.5 CGPA",
@@ -336,7 +336,7 @@ export const education = [
     },
     {
         id: 1,
-        img: "https://firebasestorage.googleapis.com/v0/b/flexi-coding.appspot.com/o/methodist.png?alt=media&token=018a1b18-e2dd-4f34-8855-cff1b6b69fd3",
+        img: "https://upload.wikimedia.org/wikipedia/en/c/c8/University_of_the_Punjab_logo.png",
         school: "University of Punjab | islamabad, Islamabad Capital Territory",
         date: "Sep 1999 - Jun 2002",
         grade: "77.5%",
