@@ -21,22 +21,28 @@ const Projects = ({openModal,setOpenModal}) => {
             <ToggleButton value="all" onClick={() => setToggle('all')}>All</ToggleButton>
           }
           <Divider />
-          {toggle === 'web app' ?
-            <ToggleButton active value="web app" onClick={() => setToggle('web app')}>WEB APP'S</ToggleButton>
+          {toggle === 'saas app' ?
+            <ToggleButton active value="saas app" onClick={() => setToggle('saas app')}>SAAS APPs</ToggleButton>
             :
-            <ToggleButton value="web app" onClick={() => setToggle('web app')}>WEB APP'S</ToggleButton>
+            <ToggleButton value="saas app" onClick={() => setToggle('saas app')}>SAAS APPs</ToggleButton>
           }
           <Divider />
-          {toggle === 'android app' ?
-            <ToggleButton active value="android app" onClick={() => setToggle('android app')}>ANDROID APP'S</ToggleButton>
-            :
-            <ToggleButton value="android app" onClick={() => setToggle('android app')}>ANDROID APP'S</ToggleButton>
+          {toggle === 'web app' ?
+              <ToggleButton active value="web app" onClick={() => setToggle('web app')}>WEB APPs</ToggleButton>
+              :
+              <ToggleButton value="web app" onClick={() => setToggle('web app')}>WEB APPs</ToggleButton>
           }
           <Divider />
           {toggle === 'machine learning' ?
-            <ToggleButton active value="machine learning" onClick={() => setToggle('machine learning')}>MACHINE LEARNING</ToggleButton>
-            :
-            <ToggleButton value="machine learning" onClick={() => setToggle('machine learning')}>MACHINE LEARNING</ToggleButton>
+              <ToggleButton active value="machine learning" onClick={() => setToggle('machine learning')}>MACHINE LEARNING</ToggleButton>
+              :
+              <ToggleButton value="machine learning" onClick={() => setToggle('machine learning')}>MACHINE LEARNING</ToggleButton>
+          }
+          <Divider />
+          {toggle === 'backend api' ?
+              <ToggleButton active value="backend api" onClick={() => setToggle('backend api')}>BACKEND APIs</ToggleButton>
+              :
+              <ToggleButton value="backend api" onClick={() => setToggle('backend api')}>BACKEND APIs</ToggleButton>
           }
         </ToggleButtonGroup>
         <CardContainer>
@@ -45,7 +51,7 @@ const Projects = ({openModal,setOpenModal}) => {
               <ProjectCard project={project} openModal={openModal} setOpenModal={setOpenModal}/>
             ))}
           {projects
-            .filter((item) => item.category == toggle)
+            .filter((item) => item.category === toggle)
             .map((project) => (
               <ProjectCard project={project} openModal={openModal} setOpenModal={setOpenModal}/>
             ))}

@@ -369,6 +369,14 @@ export const projects = [
         category: "web app",
         github: "https://github.com/rishavchanda/Trackify",
         webapp: "https://trackify.duckdns.org",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
     {
         id: 0,
@@ -385,15 +393,9 @@ export const projects = [
         member: [
             {
                 name: "Atif Ali",
-                img: "https://avatars.githubusercontent.com/u/64485885?v=4",
-                linkedin: "https://www.linkedin.com/in/rishav-chanda-b89a791b3/",
-                github: "https://github.com/rishavchanda/",
-            },
-            {
-                name: "Upasana Chaudhuri",
-                img: "https://avatars.githubusercontent.com/u/100614635?v=4",
-                linkedin: "https://www.linkedin.com/in/upasana-chaudhuri-2a2bb5231/",
-                github: "https://github.com/upasana0710",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
             },
         ],
     },
@@ -416,6 +418,14 @@ export const projects = [
         category: "web app",
         github: "https://github.com/rishavchanda/Project-Management-App",
         webapp: "https://vexa-app.netlify.app/",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
     {
         id: 2,
@@ -432,15 +442,9 @@ export const projects = [
         member: [
             {
                 name: "Atif Ali",
-                img: "https://avatars.githubusercontent.com/u/64485885?v=4",
-                linkedin: "https://www.linkedin.com/in/rishav-chanda-b89a791b3/",
-                github: "https://github.com/rishavchanda/",
-            },
-            {
-                name: "Upasana Chaudhuri",
-                img: "https://avatars.githubusercontent.com/u/100614635?v=4",
-                linkedin: "https://www.linkedin.com/in/upasana-chaudhuri-2a2bb5231/",
-                github: "https://github.com/upasana0710",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
             },
         ],
     },
@@ -453,9 +457,17 @@ export const projects = [
         image:
             "https://camo.githubusercontent.com/fbf405040ae86b5d4a40f24e4ac034982cb8c0e2d850560ba64527997b258be8/68747470733a2f2f666972656261736573746f726167652e676f6f676c65617069732e636f6d2f76302f622f6c6f67696e2d65613565322e61707073706f742e636f6d2f6f2f4255434b4f49442532302831292e706e673f616c743d6d6564696126746f6b656e3d32653735376235372d323964372d346263612d613562322d653164346538313432373435",
         tags: ["Kotlin", "MVVM", "Room Database", "Google Drive Cloud API"],
-        category: "android app",
+        category: "saa app",
         github: "https://github.com/rishavchanda/Buckoid-Android-App",
         webapp: "https://play.google.com/store/apps/details?id=com.rishav.buckoid",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
     {
         id: 10,
@@ -466,9 +478,17 @@ export const projects = [
         image:
             "https://user-images.githubusercontent.com/64485885/255237090-cf798a2c-1b41-4bb7-b904-b5353a1f08e8.png",
         tags: ["React Native", "JavaScript", "Axios"],
-        category: "android app",
+        category: "saas app",
         github: "https://github.com/rishavchanda/Job-finder-App",
         webapp: "https://github.com/rishavchanda/Job-finder-App",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
     {
         id: 4,
@@ -482,6 +502,14 @@ export const projects = [
         category: "web app",
         github: "https://github.com/rishavchanda/Whatsapp-Clone-React-Js",
         webapp: "https://whatsapp-clone-rishav.web.app",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
     {
         id: 5,
@@ -495,6 +523,14 @@ export const projects = [
         category: "web app",
         github: "https://github.com/rishavchanda/Todo-Web-App",
         webapp: "https://rishav-react-todo.netlify.app/",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
     {
         id: 6,
@@ -508,6 +544,14 @@ export const projects = [
         category: "web app",
         github: "https://github.com/rishavchanda/Breaking-Bad",
         webapp: "https://breaking-bad-webapp.netlify.app",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
     {
         id: 7,
@@ -518,9 +562,17 @@ export const projects = [
         image:
             "https://github-production-user-asset-6210df.s3.amazonaws.com/64485885/239726262-c1b061d1-d9d0-42ef-9f1c-0412d14bc4f6.gif",
         tags: ["Java", "Android Studio", "Firebase", "Google Auth"],
-        category: "android app",
+        category: "saas app",
         github: "https://github.com/rishavchanda/Quiz-Earn",
         webapp: "https://github.com/rishavchanda/Quiz-Earn",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
     {
         id: 8,
@@ -534,6 +586,14 @@ export const projects = [
         category: "machine learning",
         github: "https://github.com/rishavchanda/Face-Recodnition-AI-with-Python",
         webapp: "https://github.com/rishavchanda/Face-Recodnition-AI-with-Python",
+        member: [
+            {
+                name: "Atif Ali",
+                img: "https://avatars.githubusercontent.com/u/6523988?v=4",
+                linkedin: "https://www.linkedin.com/in/-atifali-/",
+                github: "https://github.com/atifali-pm/",
+            },
+        ],
     },
 ];
 
