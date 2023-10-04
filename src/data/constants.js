@@ -328,7 +328,7 @@ export const experiences = [
 export const education = [
     {
         id: 0,
-        img: "https://crystalpng.com/wp-content/uploads/2022/06/bahria-university-logo.png",
+        img: "https://i.pinimg.com/originals/56/be/49/56be4940051bf2e32f78eb67ffd0a8d6.png",
         school: "Bahria University | islamabad, Islamabad Capital Territory",
         date: "Sep 2002 - Mar 2005",
         grade: "3.5 CGPA",
@@ -347,28 +347,20 @@ export const education = [
 export const projects = [
     {
         id: 9,
-        title: "Trackify",
-        date: "Jun 2023 - Jul 2023",
+        title: "Invoice Print",
+        date: "Sep 2023 - Oct 2023",
         description:
-            "Trackify is a web application designed to streamline task management and enhance productivity in the workplace. It provides a user-friendly interface for employers to keep track of their employees' daily work activities and empowers employees to log their tasks efficiently. \nAdmin Credentials: # Email: testadmin@gmail.com #Password- 123@testadmin, Employee Credentials:	#Email: testemployee@gmail.com	#Password- 123@Testemployee",
+            "Simple invoice application",
         image:
-            "https://user-images.githubusercontent.com/64485885/255202416-e1f89b04-2788-45b0-abc2-9dec616669e2.png",
+            "https://github.com/atifali-pm/laravel-invoice-app/blob/21d60e797a953382e0c1d467e3875a7960a18ed3/img-11-46.png",
         tags: [
+            "Laravel 10",
+            "Vue JS",
             "Docker",
-            "AWS",
-            "DuckDNS",
-            "Eslint",
-            "Husky",
-            "CI/CD",
-            "React Js",
-            "MongoDb",
-            "Node Js",
-            "Express Js",
-            "Redux",
         ],
         category: "web app",
-        github: "https://github.com/rishavchanda/Trackify",
-        webapp: "https://trackify.duckdns.org",
+        github: "https://github.com/atifali-pm/laravel-invoice-app",
+        webapp: "",
         member: [
             {
                 name: "Atif Ali",
