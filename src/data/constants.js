@@ -357,6 +357,7 @@ export const projects = [
             "Laravel 10",
             "Vue JS",
             "Docker",
+            "MySql",
         ],
         category: "web app",
         github: "https://github.com/atifali-pm/laravel-invoice-app",
