@@ -352,7 +352,7 @@ export const projects = [
         description:
             "Simple invoice application",
         image:
-            "https://github.com/atifali-pm/laravel-invoice-app/blob/21d60e797a953382e0c1d467e3875a7960a18ed3/img-11-46.png",
+            "https://raw.githubusercontent.com/atifali-pm/laravel-invoice-app/21d60e797a953382e0c1d467e3875a7960a18ed3/img-11-46.png",
         tags: [
             "Laravel 10",
             "Vue JS",
