@@ -11,12 +11,14 @@ const currentPath = Astro.url.pathname;
 
 <header class="sticky top-0 z-50 border-b border-white/5 bg-slate-950/70 backdrop-blur-xl">
   <div class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-    <a href="/" class="group flex items-center gap-2">
-      <div
-        class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 font-bold text-white shadow-lg shadow-indigo-500/30"
-      >
-        A
-      </div>
+    <a href="/" class="group flex items-center gap-2.5">
+      <img
+        src="/profile-avatar.jpg"
+        alt="Atif Ali"
+        width="32"
+        height="32"
+        class="h-8 w-8 rounded-full object-cover ring-2 ring-white/10 shadow-lg shadow-indigo-500/20"
+      />
       <span class="font-semibold text-white">Atif Ali</span>
     </a>
     <nav class="flex items-center gap-1">

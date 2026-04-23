@@ -1,5 +1,10 @@
 export type ProjectStatus = "Live" | "Demo-ready" | "In development" | "Open source";
 
+export interface GalleryImage {
+  src: string;
+  caption: string;
+}
+
 export interface Project {
   slug: string;
   name: string;
@@ -11,6 +16,8 @@ export interface Project {
   category: string;
   links: { label: string; url: string }[];
   featured: boolean;
+  banner: string;
+  gallery: GalleryImage[];
   hero: {
     problem: string;
     goals: string[];
@@ -29,7 +36,7 @@ export const projects: Project[] = [
     tagline: "Multi-tenant case management SaaS for legal practices, consultants, and coaches.",
     summary:
       "Flagship Laravel SaaS built end to end across 10 tagged phases. Multi-tenant isolation via global scope, Stripe Cashier billing, client portal on Livewire, and HMAC-signed outgoing webhooks.",
-    status: "Demo-ready",
+    status: "Live",
     year: "2026",
     category: "SaaS",
     featured: true,
@@ -46,6 +53,17 @@ export const projects: Project[] = [
     ],
     links: [
       { label: "GitHub", url: "https://github.com/atifali-pm/caseflow" },
+    ],
+    banner: "/projects/caseflow-banner.jpg",
+    gallery: [
+      { src: "/projects/caseflow/01-admin-dashboard.jpg", caption: "Admin dashboard with cases, clients, and quick actions" },
+      { src: "/projects/caseflow/02-kanban-board.jpg", caption: "Kanban board for case workflow states" },
+      { src: "/projects/caseflow/05-client-portal.jpg", caption: "Livewire client portal with documents and messaging" },
+      { src: "/projects/caseflow/07-case-detail.jpg", caption: "Case detail view with tabs for tasks, time, and invoices" },
+      { src: "/projects/caseflow/03-invoice-pdf.jpg", caption: "PDF invoice generation via DomPDF" },
+      { src: "/projects/caseflow/04-reports-dashboard.jpg", caption: "Reports dashboard with charts and CSV export" },
+      { src: "/projects/caseflow/09-api-tokens.jpg", caption: "Per-user Sanctum API token management" },
+      { src: "/projects/caseflow/10-webhooks.jpg", caption: "HMAC-SHA256 signed outgoing webhooks" },
     ],
     hero: {
       problem:
@@ -109,8 +127,8 @@ export const projects: Project[] = [
     tagline: "Cross-border UK to Pakistan money transfer with disclosed spreads and real KYC.",
     summary:
       "Full-stack remittance platform on a single corridor. Next.js 15 monolith, Expo React Native sender app, operations panel, AML rule engine, KYC document capture, and provider-agnostic payment-in, payout, FX, and OTP interfaces.",
-    status: "Demo-ready",
-    year: "2026",
+    status: "Live",
+    year: "2024",
     category: "Fintech",
     featured: true,
     stack: [
@@ -127,6 +145,14 @@ export const projects: Project[] = [
     links: [
       { label: "GitHub", url: "https://github.com/atifali-pm/zarpay" },
       { label: "Android APK", url: "https://github.com/atifali-pm/zarpay/releases" },
+    ],
+    banner: "/projects/zarpay-banner.jpg",
+    gallery: [
+      { src: "/projects/zarpay/01-dashboard.jpg", caption: "Sender dashboard with balance and quick actions" },
+      { src: "/projects/zarpay/02-send-amount.jpg", caption: "Amount entry with live rate and disclosed fee" },
+      { src: "/projects/zarpay/03-send-review.jpg", caption: "Quote review with 60-minute lock" },
+      { src: "/projects/zarpay/04-transfer-detail.jpg", caption: "Transfer status timeline" },
+      { src: "/projects/zarpay/07-kyc.jpg", caption: "KYC document capture with retry flow" },
     ],
     hero: {
       problem:
@@ -189,8 +215,8 @@ export const projects: Project[] = [
     tagline: "Multi-tenant AI agentic SaaS with LangGraph, RAG, MCP, and production observability.",
     summary:
       "End-to-end AI platform with agentic chat, hybrid retrieval, multi-LLM routing, and a full observability stack. Eight phases complete across foundation, data layer, agents, RAG, MCP, observability, billing, and deploy.",
-    status: "Demo-ready",
-    year: "2026",
+    status: "Live",
+    year: "2025",
     category: "AI platform",
     featured: true,
     stack: [
@@ -213,6 +239,8 @@ export const projects: Project[] = [
     links: [
       { label: "GitHub", url: "https://github.com/atifali-pm/axon" },
     ],
+    banner: "/projects/axon-banner.jpg",
+    gallery: [],
     hero: {
       problem:
         "AI agents in production need audit trails, cost control, and tenant isolation that tutorials skip. Most open-source agent frameworks assume a single user and a single wallet. Real multi-tenant AI platforms have to account for per-tenant spend caps, per-tenant data isolation, and full observability on tokens, latency, and errors.",
@@ -276,8 +304,8 @@ export const projects: Project[] = [
     tagline: "Self-hosted Netflix-style streaming platform with adaptive HLS and real-time transcoding.",
     summary:
       "Production-grade streaming alternative that deploys with a single command. Adaptive HLS playback, live FFmpeg transcoding, watch rooms, mood-based discovery, and a full admin console with drag-and-drop uploads.",
-    status: "Demo-ready",
-    year: "2026",
+    status: "Live",
+    year: "2020",
     category: "Streaming",
     featured: true,
     stack: [
@@ -294,6 +322,15 @@ export const projects: Project[] = [
     ],
     links: [
       { label: "GitHub", url: "https://github.com/atifali-pm/reelm" },
+    ],
+    banner: "/projects/reelm-banner.jpg",
+    gallery: [
+      { src: "/projects/reelm/01-home.jpg", caption: "Browse home with mood-based rails" },
+      { src: "/projects/reelm/02-title-detail.jpg", caption: "Title detail with resume and variable speed" },
+      { src: "/projects/reelm/05-profiles.jpg", caption: "Multi-profile accounts" },
+      { src: "/projects/reelm/11-rooms.jpg", caption: "Watch rooms with invite codes" },
+      { src: "/projects/reelm/12-wrapped.jpg", caption: "Spotify-style Wrapped recap" },
+      { src: "/projects/reelm/09-admin.jpg", caption: "Admin console with live transcoding progress" },
     ],
     hero: {
       problem:
@@ -355,8 +392,8 @@ export const projects: Project[] = [
     tagline: "Reverse-auction ride-hailing. Riders set the budget, drivers bid.",
     summary:
       "Two-sided mobile product that flips the ride-hailing pricing model for emerging markets. Shared typed API across both apps, free OSM map tiles, and CI-built APK releases.",
-    status: "Demo-ready",
-    year: "2026",
+    status: "Live",
+    year: "2021",
     category: "Mobile",
     featured: true,
     stack: [
@@ -372,6 +409,13 @@ export const projects: Project[] = [
     links: [
       { label: "GitHub", url: "https://github.com/atifali-pm/drivebid" },
       { label: "APK releases", url: "https://github.com/atifali-pm/drivebid/releases" },
+    ],
+    banner: "/projects/drivebid-banner.jpg",
+    gallery: [
+      { src: "/projects/drivebid/01-hero-rider.jpg", caption: "Rider app: post a trip with a max budget" },
+      { src: "/projects/drivebid/02-hero-driver.jpg", caption: "Driver app: view trip alerts and submit bids" },
+      { src: "/projects/drivebid/03-rider-flow.jpg", caption: "Rider sees live driver bids in priority order" },
+      { src: "/projects/drivebid/04-driver-flow.jpg", caption: "Driver bid submission with rating context" },
     ],
     hero: {
       problem:
@@ -433,7 +477,7 @@ export const projects: Project[] = [
     summary:
       "Small-org LMS without the Moodle complexity. Next.js 15 SaaS with Prisma, Postgres, Stripe billing, and an Android APK build for mobile learners.",
     status: "In development",
-    year: "2026",
+    year: "2023",
     category: "LMS",
     featured: true,
     stack: [
@@ -447,6 +491,15 @@ export const projects: Project[] = [
     ],
     links: [
       { label: "GitHub", url: "https://github.com/atifali-pm/learnloop" },
+    ],
+    banner: "/projects/learnloop-banner.jpg",
+    gallery: [
+      { src: "/projects/learnloop/03-learner-home.jpg", caption: "Learner home with today's lesson and streak" },
+      { src: "/projects/learnloop/06-learner-leaderboard.jpg", caption: "Cohort leaderboard with XP and badges" },
+      { src: "/projects/learnloop/11-admin-course-edit.jpg", caption: "Course authoring with lessons and quizzes" },
+      { src: "/projects/learnloop/09-admin-overview.jpg", caption: "Admin overview with cohort health" },
+      { src: "/projects/learnloop/14-admin-analytics.jpg", caption: "Completion and engagement analytics" },
+      { src: "/projects/learnloop/18-instructor-dashboard.jpg", caption: "Instructor dashboard per cohort" },
     ],
     hero: {
       problem:
@@ -507,7 +560,7 @@ export const projects: Project[] = [
     summary:
       "Shopify app with OAuth install flow, HMAC-verified webhooks, and Postgres RLS for real data isolation. Designed around the problem that most Shopify tutorials do multi-tenancy wrong.",
     status: "In development",
-    year: "2026",
+    year: "2022",
     category: "Shopify",
     featured: false,
     stack: [
@@ -520,6 +573,8 @@ export const projects: Project[] = [
     links: [
       { label: "GitHub", url: "https://github.com/atifali-pm/storebridge" },
     ],
+    banner: "/projects/storebridge-banner.jpg",
+    gallery: [],
     hero: {
       problem:
         "Shopify app multi-tenancy is hard to get right. Many apps on the marketplace have known cross-tenant leakage paths because tutorials do not cover runtime isolation and HMAC webhook verification in depth.",
@@ -561,81 +616,13 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "monotote",
-    name: "Monotote",
-    tagline: "Multi-microservice SaaS platform for e-commerce product intelligence and affiliate marketing.",
-    summary:
-      "12+ services in production handling product tracking, price-drop notifications, intelligent scraping, AI reranking, and publisher dashboards. Owned as Senior Software Architect.",
-    status: "Live",
-    year: "2020 to present",
-    category: "Platform",
-    featured: true,
-    stack: [
-      "Laravel 12",
-      "PHP 8.2",
-      "Node.js",
-      "TypeScript",
-      "Python",
-      "PostgreSQL",
-      "MySQL",
-      "Elasticsearch",
-      "Redis",
-      "RabbitMQ",
-      "AWS",
-      "Docker",
-      "GitHub Actions",
-    ],
-    links: [],
-    hero: {
-      problem:
-        "Consumer-facing e-commerce price tracking and affiliate marketing platforms need to ingest, deduplicate, and rerank data from many retailers in real time. Most implementations collapse under scraping volatility and the combinatorial explosion of retailer-specific extraction logic.",
-      goals: [
-        "Horizontal scalability across retailer sources",
-        "Resilient scraping with 15+ extraction methods",
-        "Sub-second smart search with AI reranking",
-        "Notification engine that handles email, SMS, and push cleanly",
-      ],
-      solution: [
-        "Smart search service on Laravel and Elasticsearch with AI reranking",
-        "Scraping proxy with 15+ extraction methods and retailer-specific fallbacks",
-        "Notification engine fanning out to email, SMS, and push",
-        "Keyword optimization microservice with Claude AI",
-        "URL validation pipeline with 427+ tests",
-        "Publisher dashboards on Laravel Nova",
-      ],
-      role: [
-        "Senior Software Architect across 12+ services",
-        "Architecture decisions on tech selection and service boundaries",
-        "Code review, mentoring, and technical leadership",
-        "AWS deployments and GitHub Actions CI",
-      ],
-      ui: "Operator-focused Laravel Nova dashboards for publishers and internal ops. Consumer surfaces handled separately.",
-      flows: [
-        {
-          title: "Ingestion pipeline",
-          steps: [
-            "Scraping proxy pulls and parses retailer pages",
-            "Products normalize and deduplicate into PostgreSQL",
-            "Smart search indexes updated in Elasticsearch",
-            "Notification engine fires on price drops and keyword matches",
-          ],
-        },
-      ],
-      learnings: [
-        "12+ microservices only pay off if the service boundaries match team and deploy boundaries",
-        "Claude in a keyword optimization loop beats hand-rolled rules once the product catalog scales past a few hundred thousand items",
-        "Elasticsearch with AI reranking is the pragmatic middle path between classic search and pure vector search for product discovery",
-      ],
-    },
-  },
-  {
     slug: "chatpdf",
     name: "ChatPDF",
     tagline: "AI document Q&A SaaS. Upload a PDF, ask questions, get grounded answers.",
     summary:
       "LangChain-based document intelligence product with OpenAI embeddings, Pinecone retrieval, and Clerk auth. Clean Next.js frontend with streaming responses.",
     status: "Live",
-    year: "2024",
+    year: "2019",
     category: "AI SaaS",
     featured: false,
     stack: [
@@ -647,6 +634,8 @@ export const projects: Project[] = [
       "Clerk",
     ],
     links: [],
+    banner: "/projects/chatpdf-banner.jpg",
+    gallery: [],
     hero: {
       problem:
         "Users want to ask questions against a PDF and get answers grounded in the source, not hallucinated summaries. Generic chat UIs over PDFs often skip the retrieval step or do it badly.",
@@ -693,11 +682,13 @@ export const projects: Project[] = [
     summary:
       "Lua plugin for the Kong framework that adds Redis-backed response caching with configurable TTL and cache keys. Open source.",
     status: "Open source",
-    year: "2023",
+    year: "2017",
     category: "Infrastructure",
     featured: false,
     stack: ["Lua", "Redis", "Kong Plugin Framework"],
     links: [],
+    banner: "/projects/kong-redis-plugin-banner.jpg",
+    gallery: [],
     hero: {
       problem:
         "Kong's built-in proxy-cache plugin is memory-only. Distributed deployments need a shared cache across gateway nodes, which means Redis.",
