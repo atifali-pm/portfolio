@@ -1,0 +1,227 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { featuredProjects } from "../data/projects";
+
+const stats = [
+  { value: "20+", label: "Years shipping" },
+  { value: "10+", label: "Portfolio projects" },
+  { value: "12+", label: "Services at Monotote" },
+  { value: "5", label: "Production stacks" },
+];
+
+const specialties = [
+  {
+    title: "Multi-tenant SaaS",
+    description:
+      "Real tenant isolation via global scopes or Postgres RLS, not URL prefixes or handwaving. Billing, auth, and admin consoles that survive real customers.",
+    icon: "M4 6a2 2 0 012-2h12a2 2 0 012 2v2H4V6zm16 4H4v8a2 2 0 002 2h12a2 2 0 002-2v-8zM8 14h4",
+  },
+  {
+    title: "AI & LLM platforms",
+    description:
+      "Agentic systems with LangGraph, RAG over pgvector, MCP server integrations, and Langfuse observability. Claude and OpenAI into production workflows.",
+    icon: "M12 4.5v15m7.5-7.5h-15",
+  },
+  {
+    title: "Fintech & payments",
+    description:
+      "Cross-border remittance, Stripe Cashier billing, KYC and AML rule engines, and provider-agnostic interfaces so counterparties are a swap, not a rewrite.",
+    icon: "M3 6l9 4 9-4M3 10l9 4 9-4M3 14l9 4 9-4",
+  },
+  {
+    title: "APIs at scale",
+    description:
+      "REST APIs serving millions of requests. Sanctum, JWT, HMAC-signed webhooks, rate limiting, and idempotency patterns that actually hold up in production.",
+    icon: "M7 8l-4 4 4 4m10-8l4 4-4 4M14 4l-4 16",
+  },
+];
+---
+
+<Layout>
+  <section class="relative mx-auto max-w-6xl px-6 pt-20 pb-16 md:pt-28">
+    <div class="flex flex-col items-start gap-6">
+      <div
+        class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 backdrop-blur"
+      >
+        <span class="relative flex h-2 w-2">
+          <span
+            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"
+          ></span>
+          <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"
+          ></span>
+        </span>
+        Available for senior contract work
+      </div>
+
+      <h1
+        class="max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight text-white md:text-6xl lg:text-7xl"
+      >
+        I build <span class="gradient-text">production systems</span> that
+        actually hold up under real load.
+      </h1>
+      <p class="max-w-2xl text-lg text-slate-400 md:text-xl">
+        Senior Software Architect with 20+ years across Laravel, Python,
+        FastAPI, React, Node, and Golang. Multi-tenant SaaS, AI platforms,
+        fintech products, and APIs at scale.
+      </p>
+      <div class="mt-2 flex flex-wrap gap-3">
+        <a
+          href="/projects"
+          class="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all hover:shadow-indigo-500/40"
+        >
+          View case studies
+          <svg
+            class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M13 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+        >
+          Get in touch
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="mt-16 grid grid-cols-2 gap-6 border-t border-white/5 pt-10 md:grid-cols-4"
+    >
+      {
+        stats.map((stat) => (
+          <div>
+            <div class="text-3xl font-bold text-white md:text-4xl">
+              {stat.value}
+            </div>
+            <div class="mt-1 text-sm text-slate-400">{stat.label}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16">
+    <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
+          Featured work
+        </p>
+        <h2 class="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl">
+          Products I've shipped
+        </h2>
+        <p class="mt-2 max-w-2xl text-slate-400">
+          Selected case studies across SaaS, AI, fintech, streaming, and
+          mobile. Click into any project for a full architecture and decision
+          breakdown.
+        </p>
+      </div>
+      <a
+        href="/projects"
+        class="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-300 hover:text-indigo-200"
+      >
+        See all projects
+        <svg
+          class="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14M13 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      {featuredProjects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16">
+    <div class="max-w-2xl">
+      <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
+        What I do
+      </p>
+      <h2 class="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl">
+        Specialties
+      </h2>
+      <p class="mt-2 text-slate-400">
+        I own projects end to end: scoping, system design, code, CI/CD,
+        Docker, and deployment. Here's where I add the most value.
+      </p>
+    </div>
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
+      {
+        specialties.map((spec) => (
+          <div class="rounded-2xl border border-white/10 bg-slate-900/50 p-6 backdrop-blur-sm">
+            <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500/20 to-purple-500/20 ring-1 ring-indigo-500/30">
+              <svg
+                class="h-5 w-5 text-indigo-300"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d={spec.icon} />
+              </svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-white">{spec.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">
+              {spec.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 py-16">
+    <div
+      class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 p-10 text-center md:p-16"
+    >
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(99,102,241,0.25),transparent_60%)]"
+      >
+      </div>
+      <div class="relative">
+        <h2
+          class="text-3xl font-bold tracking-tight text-white md:text-4xl"
+        >
+          Have a product that needs to actually ship?
+        </h2>
+        <p class="mx-auto mt-4 max-w-2xl text-slate-300">
+          I take vague ideas and turn them into working, well-architected
+          products. Let's talk about what you're building.
+        </p>
+        <a
+          href="/contact"
+          class="mt-8 inline-flex items-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition-all hover:bg-slate-100"
+        >
+          Start a conversation
+          <svg
+            class="h-4 w-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M5 12h14M13 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,81 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  project: Project;
+  featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+
+const statusColors: Record<Project["status"], string> = {
+  Live: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
+  "Demo-ready": "bg-indigo-500/10 text-indigo-300 border-indigo-500/20",
+  "In development": "bg-amber-500/10 text-amber-300 border-amber-500/20",
+  "Open source": "bg-sky-500/10 text-sky-300 border-sky-500/20",
+};
+---
+
+<a
+  href={`/projects/${project.slug}`}
+  class:list={[
+    "group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-900/50 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/40 hover:bg-slate-900/80 hover:shadow-2xl hover:shadow-indigo-500/10",
+    featured ? "md:col-span-2" : "",
+  ]}
+>
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-indigo-500/0 via-purple-500/0 to-pink-500/0 opacity-0 transition-opacity duration-500 group-hover:from-indigo-500/5 group-hover:via-purple-500/5 group-hover:to-pink-500/5 group-hover:opacity-100"
+  >
+  </div>
+  <div class="relative flex items-start justify-between gap-4">
+    <div>
+      <div class="flex items-center gap-2 text-xs uppercase tracking-wider text-slate-500">
+        <span>{project.category}</span>
+        <span>·</span>
+        <span>{project.year}</span>
+      </div>
+      <h3 class="mt-1 text-xl font-semibold text-white">{project.name}</h3>
+    </div>
+    <span
+      class:list={[
+        "shrink-0 rounded-full border px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider",
+        statusColors[project.status],
+      ]}
+    >
+      {project.status}
+    </span>
+  </div>
+  <p class="relative mt-3 text-sm text-slate-400">{project.tagline}</p>
+  <div class="relative mt-5 flex flex-wrap gap-1.5">
+    {
+      project.stack.slice(0, 5).map((tech) => (
+        <span class="rounded-md bg-slate-800/60 px-2 py-0.5 text-[11px] text-slate-300 ring-1 ring-white/5">
+          {tech}
+        </span>
+      ))
+    }
+    {
+      project.stack.length > 5 && (
+        <span class="rounded-md bg-slate-800/60 px-2 py-0.5 text-[11px] text-slate-400 ring-1 ring-white/5">
+          +{project.stack.length - 5}
+        </span>
+      )
+    }
+  </div>
+  <div
+    class="relative mt-6 flex items-center gap-1.5 text-sm font-medium text-indigo-300 transition-colors group-hover:text-indigo-200"
+  >
+    Read case study
+    <svg
+      class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M5 12h14M13 5l7 7-7 7"></path>
+    </svg>
+  </div>
+</a>

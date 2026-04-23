@@ -1,0 +1,238 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const experience = [
+  {
+    role: "Senior Software Architect",
+    company: "Monotote",
+    period: "2020 to present",
+    description:
+      "Lead architect on a multi-microservice SaaS platform for e-commerce product intelligence and affiliate marketing. 12+ services including smart search with AI reranking, a scraping proxy with 15+ extraction methods, a notification engine, and publisher dashboards.",
+  },
+  {
+    role: "Software Engineer",
+    company: "Catchevo",
+    period: "Contract",
+    description:
+      "Built a multi-phase market research pipeline using Claude AI with web search and OpenPyXL for Excel report generation for a Kayak-style product shopping app.",
+  },
+  {
+    role: "Self-employed",
+    company: "Portfolio and client projects",
+    period: "Ongoing",
+    description:
+      "CaseFlow (multi-tenant legal SaaS), Zarpay (cross-border remittance), Axon (AI agentic platform), Reelm (self-hosted streaming), DriveBid (reverse-auction ride-hailing), ChatPDF, Kong Redis plugin, and more.",
+  },
+];
+
+const stacks = [
+  {
+    heading: "Backend",
+    items: [
+      "Laravel 12 / PHP 8.2",
+      "Python / FastAPI / Django",
+      "Node.js / TypeScript",
+      "Golang",
+      "Ruby on Rails",
+    ],
+  },
+  {
+    heading: "Frontend",
+    items: [
+      "Next.js 15 (App Router, RSC, Server Actions)",
+      "React / TypeScript",
+      "Tailwind, shadcn/ui",
+      "Livewire, Filament",
+      "React Native / Expo",
+    ],
+  },
+  {
+    heading: "Data",
+    items: [
+      "PostgreSQL 16 (RLS, pgvector)",
+      "MySQL",
+      "Elasticsearch",
+      "Redis",
+      "Prisma, Drizzle, Eloquent",
+    ],
+  },
+  {
+    heading: "Platform",
+    items: [
+      "Docker, Docker Compose",
+      "AWS, Oracle Cloud",
+      "GitHub Actions CI/CD",
+      "Caddy, Nginx, Cloudflare",
+      "BullMQ, RabbitMQ",
+    ],
+  },
+  {
+    heading: "AI",
+    items: [
+      "LangGraph agents",
+      "RAG over pgvector",
+      "MCP server integrations",
+      "Claude, OpenAI in production",
+      "Langfuse, Prometheus, Grafana, Loki",
+    ],
+  },
+  {
+    heading: "Other",
+    items: [
+      "Stripe Cashier, Stripe direct",
+      "HMAC webhook signing",
+      "OAuth, NextAuth, Better Auth, Sanctum",
+      "Smart contracts, dApps",
+      "WordPress, Drupal, Joomla",
+    ],
+  },
+];
+---
+
+<Layout title="About — Atif Ali" description="Senior Software Architect with 20+ years shipping production systems across the full stack.">
+  <section class="mx-auto max-w-4xl px-6 pt-20 pb-10 md:pt-28">
+    <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
+      About
+    </p>
+    <h1
+      class="mt-2 text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
+    >
+      Hi, I'm <span class="gradient-text">Atif</span>.
+    </h1>
+    <p class="mt-6 text-xl leading-relaxed text-slate-300">
+      Senior Software Architect with 20+ years shipping production systems.
+      I work primarily with Laravel, Python, FastAPI, React, Node, and Golang,
+      and I own projects end to end: scoping, system design, code, CI/CD,
+      Docker, and deployment.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-10">
+    <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+      How I work
+    </h2>
+    <div class="mt-6 space-y-4 text-lg leading-relaxed text-slate-300">
+      <p>
+        I care about clean architecture, solid test coverage, and shipping
+        things that actually work in production. I've built REST APIs
+        serving millions of requests, self-hosted video platforms, admin
+        dashboards, and multi-tenant SaaS products with proper tenant
+        isolation.
+      </p>
+      <p>
+        On the AI side, I build agentic systems with LangGraph, RAG
+        pipelines over pgvector, and MCP server integrations, backed by
+        production observability through Langfuse, Prometheus, Grafana, and
+        Loki. I've integrated Claude and OpenAI into live workflows
+        including document Q&A, research automation, and keyword
+        optimization microservices.
+      </p>
+      <p>
+        On the blockchain side, I've built decentralized applications
+        including yield farming protocols, staking systems, cross-network
+        bridges, and smart contract integrations. I understand consensus
+        mechanisms, peer-to-peer security, and distributed ledger design.
+      </p>
+      <p>
+        I'm comfortable owning a project end to end. Past teams have used
+        both Agile and Waterfall with GitHub, GitLab, JIRA, and Trello. If
+        you need someone who can take a vague idea and turn it into a
+        working, well-architected product, let's talk.
+      </p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-10">
+    <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+      Experience
+    </h2>
+    <div class="mt-8 space-y-6">
+      {
+        experience.map((item) => (
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-6 backdrop-blur-sm">
+            <div class="flex flex-wrap items-baseline justify-between gap-2">
+              <div>
+                <h3 class="text-lg font-semibold text-white">
+                  {item.role}
+                </h3>
+                <p class="text-sm text-indigo-300">{item.company}</p>
+              </div>
+              <span class="text-xs uppercase tracking-widest text-slate-500">
+                {item.period}
+              </span>
+            </div>
+            <p class="mt-3 leading-relaxed text-slate-300">
+              {item.description}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-10">
+    <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+      Toolbox
+    </h2>
+    <p class="mt-2 text-slate-400">
+      Not dogmatic about stack. Pick what fits the problem.
+    </p>
+    <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {
+        stacks.map((stack) => (
+          <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-6">
+            <h3 class="text-sm font-semibold uppercase tracking-widest text-indigo-300">
+              {stack.heading}
+            </h3>
+            <ul class="mt-3 space-y-1.5 text-sm text-slate-300">
+              {stack.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-10">
+    <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+      Education
+    </h2>
+    <div class="mt-6 rounded-2xl border border-white/10 bg-slate-900/40 p-6">
+      <h3 class="font-semibold text-white">Master of Computer Applications</h3>
+      <p class="text-sm text-indigo-300">Bahria University · 2002 to 2005</p>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-4xl px-6 py-16">
+    <div
+      class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 p-8 md:p-12"
+    >
+      <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+        Let's build something together
+      </h2>
+      <p class="mt-3 text-slate-300">
+        Open to senior contract work across SaaS, AI, fintech, and API
+        platforms.
+      </p>
+      <a
+        href="/contact"
+        class="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 transition-all hover:bg-slate-100"
+      >
+        Get in touch
+        <svg
+          class="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14M13 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

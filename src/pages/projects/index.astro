@@ -1,0 +1,39 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { projects } from "../../data/projects";
+
+const categories = Array.from(new Set(projects.map((p) => p.category)));
+---
+
+<Layout title="Projects — Atif Ali" description="Full case studies across SaaS, AI, fintech, streaming, and mobile.">
+  <section class="mx-auto max-w-6xl px-6 pt-20 pb-10 md:pt-28">
+    <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
+      Case studies
+    </p>
+    <h1
+      class="mt-2 max-w-3xl text-4xl font-bold tracking-tight text-white md:text-5xl"
+    >
+      All <span class="gradient-text">projects</span>
+    </h1>
+    <p class="mt-4 max-w-2xl text-lg text-slate-400">
+      Full case studies for every project. Problem, goals, solution,
+      architecture decisions, flows, and what I learned shipping it.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-2">
+      {
+        categories.map((cat) => (
+          <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
+            {cat}
+          </span>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-6 md:grid-cols-2">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+</Layout>

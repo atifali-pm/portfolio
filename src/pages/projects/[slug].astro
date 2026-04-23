@@ -1,0 +1,259 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { projects } from "../../data/projects";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+const statusColors: Record<string, string> = {
+  Live: "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
+  "Demo-ready": "bg-indigo-500/10 text-indigo-300 border-indigo-500/20",
+  "In development": "bg-amber-500/10 text-amber-300 border-amber-500/20",
+  "Open source": "bg-sky-500/10 text-sky-300 border-sky-500/20",
+};
+---
+
+<Layout
+  title={`${project.name} — Atif Ali`}
+  description={project.tagline}
+>
+  <article class="mx-auto max-w-4xl px-6 pt-16 pb-20 md:pt-24">
+    <a
+      href="/projects"
+      class="inline-flex items-center gap-1.5 text-sm font-medium text-slate-400 transition-colors hover:text-white"
+    >
+      <svg
+        class="h-4 w-4"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M19 12H5M11 19l-7-7 7-7"></path>
+      </svg>
+      All projects
+    </a>
+
+    <header class="mt-10">
+      <div class="flex flex-wrap items-center gap-3 text-xs uppercase tracking-widest text-slate-500">
+        <span>{project.category}</span>
+        <span>·</span>
+        <span>{project.year}</span>
+        <span
+          class:list={[
+            "rounded-full border px-2.5 py-1 font-medium",
+            statusColors[project.status],
+          ]}
+        >
+          {project.status}
+        </span>
+      </div>
+      <h1
+        class="mt-4 text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
+      >
+        {project.name}
+      </h1>
+      <p class="mt-6 text-xl leading-relaxed text-slate-300">
+        {project.tagline}
+      </p>
+
+      {
+        project.links.length > 0 && (
+          <div class="mt-6 flex flex-wrap gap-3">
+            {project.links.map((link) => (
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-white/10"
+              >
+                {link.label}
+                <svg
+                  class="h-3.5 w-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M7 17L17 7M7 7h10v10" />
+                </svg>
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="mt-10 rounded-2xl border border-white/10 bg-slate-900/40 p-6 backdrop-blur-sm">
+      <div class="text-xs uppercase tracking-widest text-slate-500">
+        Tech stack
+      </div>
+      <div class="mt-3 flex flex-wrap gap-2">
+        {
+          project.stack.map((tech) => (
+            <span class="rounded-md bg-slate-800/80 px-2.5 py-1 text-xs font-medium text-slate-200 ring-1 ring-white/5">
+              {tech}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+
+    <section class="mt-16">
+      <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+        The problem
+      </h2>
+      <p class="mt-4 text-lg leading-relaxed text-slate-300">
+        {project.hero.problem}
+      </p>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+        Goals
+      </h2>
+      <ul class="mt-4 space-y-3">
+        {
+          project.hero.goals.map((goal) => (
+            <li class="flex items-start gap-3">
+              <div class="mt-1.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-indigo-500/20 ring-1 ring-indigo-400/50">
+                <div class="h-1.5 w-1.5 rounded-full bg-indigo-400" />
+              </div>
+              <span class="text-slate-300">{goal}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+        The solution
+      </h2>
+      <ul class="mt-4 grid gap-3 md:grid-cols-2">
+        {
+          project.hero.solution.map((item) => (
+            <li class="rounded-xl border border-white/10 bg-slate-900/40 p-4 text-slate-300">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+        My role
+      </h2>
+      <ul class="mt-4 space-y-2 text-slate-300">
+        {
+          project.hero.role.map((item) => (
+            <li class="flex gap-3">
+              <span class="text-indigo-400">→</span>
+              <span>{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+        UI direction
+      </h2>
+      <p class="mt-4 text-lg leading-relaxed text-slate-300">
+        {project.hero.ui}
+      </p>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+        User flows
+      </h2>
+      <div class="mt-6 space-y-6">
+        {
+          project.hero.flows.map((flow) => (
+            <div class="rounded-2xl border border-white/10 bg-slate-900/40 p-6">
+              <h3 class="font-semibold text-white">{flow.title}</h3>
+              <ol class="mt-4 space-y-3">
+                {flow.steps.map((step, idx) => (
+                  <li class="flex items-start gap-3">
+                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-xs font-semibold text-white">
+                      {idx + 1}
+                    </span>
+                    <span class="pt-0.5 text-slate-300">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="mt-14">
+      <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+        Key learnings
+      </h2>
+      <ul class="mt-4 space-y-3">
+        {
+          project.hero.learnings.map((item) => (
+            <li class="flex items-start gap-3">
+              <svg
+                class="mt-0.5 h-5 w-5 shrink-0 text-purple-400"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z" />
+              </svg>
+              <span class="text-slate-300">{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section
+      class="mt-16 rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 p-8 md:p-12"
+    >
+      <h2 class="text-2xl font-bold tracking-tight text-white">
+        Want something like {project.name}?
+      </h2>
+      <p class="mt-2 text-slate-300">
+        I'm open to senior contract work. Let's talk about what you're
+        building.
+      </p>
+      <a
+        href="/contact"
+        class="mt-6 inline-flex items-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 transition-all hover:bg-slate-100"
+      >
+        Get in touch
+        <svg
+          class="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14M13 5l7 7-7 7"></path>
+        </svg>
+      </a>
+    </section>
+  </article>
+</Layout>
