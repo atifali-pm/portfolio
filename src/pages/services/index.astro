@@ -1,0 +1,107 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { services, serviceCategories } from "../../data/services";
+
+// Group services by category for the sidebar
+const grouped = serviceCategories.map((cat) => ({
+  category: cat,
+  items: services.filter((s) => s.category === cat),
+}));
+---
+
+<Layout
+  title="Services — Atif Ali"
+  description="24 production services architected and shipped: Stripe billing, HMAC webhooks, Postgres RLS, RAG over pgvector, MCP integrations, AML engines, HLS streaming, and more."
+>
+  <section class="mx-auto max-w-6xl px-6 pt-14 pb-8 md:pt-20">
+    <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
+      Services architected
+    </p>
+    <h1
+      class="mt-2 max-w-3xl text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl"
+    >
+      Production <span class="gradient-text">building blocks</span>
+    </h1>
+    <p class="mt-4 max-w-2xl text-base text-slate-400">
+      Reusable services I've architected and shipped across multi-tenant SaaS,
+      fintech, AI platforms, streaming, and infrastructure. Each one is a real
+      production workload, not a slide.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-20">
+    <div class="grid gap-8 md:grid-cols-[220px_1fr] lg:grid-cols-[260px_1fr] md:gap-12">
+      <aside class="md:sticky md:top-20 md:h-[calc(100vh-6rem)] md:overflow-y-auto md:pr-2">
+        <nav class="space-y-6">
+          {
+            grouped.map((group) => (
+              <div>
+                <h3 class="text-[11px] font-semibold uppercase tracking-widest text-indigo-300">
+                  {group.category}
+                </h3>
+                <ul class="mt-2 space-y-1.5">
+                  {group.items.map((s) => (
+                    <li>
+                      <a
+                        href={`#${s.slug}`}
+                        class="block text-sm text-slate-400 transition-colors hover:text-white"
+                      >
+                        {s.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </nav>
+      </aside>
+
+      <div class="space-y-10">
+        {
+          services.map((service) => (
+            <article
+              id={service.slug}
+              class="scroll-mt-20 rounded-2xl border border-white/10 bg-slate-900/40 p-6 backdrop-blur-sm md:p-8"
+            >
+              <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest text-slate-500">
+                <span>{service.category}</span>
+                {service.projectName && (
+                  <>
+                    <span>·</span>
+                    <span class="text-indigo-300">{service.projectName}</span>
+                  </>
+                )}
+              </div>
+              <h2 class="mt-2 text-2xl font-semibold text-white">
+                {service.name}
+              </h2>
+              <p class="mt-3 leading-relaxed text-slate-300">
+                {service.description}
+              </p>
+              {service.projectSlug && (
+                <a
+                  href={`/projects/${service.projectSlug}`}
+                  class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-indigo-300 transition-colors hover:text-indigo-200"
+                >
+                  See it in {service.projectName}
+                  <svg
+                    class="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </a>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

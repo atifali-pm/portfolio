@@ -4,24 +4,24 @@ import Layout from "../layouts/Layout.astro";
 const experience = [
   {
     role: "Senior Software Architect",
-    company: "Monotote",
+    company: "E-commerce intelligence SaaS platform",
     period: "2020 to present",
     description:
       "Lead architect on a multi-microservice SaaS platform for e-commerce product intelligence and affiliate marketing. 12+ services including smart search with AI reranking, a scraping proxy with 15+ extraction methods, a notification engine, and publisher dashboards.",
   },
   {
     role: "Software Engineer",
-    company: "Catchevo",
+    company: "AI market research contract",
     period: "Contract",
     description:
-      "Built a multi-phase market research pipeline using Claude AI with web search and OpenPyXL for Excel report generation for a Kayak-style product shopping app.",
+      "Built a multi-phase market research pipeline using Claude AI with web search and OpenPyXL for Excel report generation for a product-shopping platform.",
   },
   {
     role: "Self-employed",
     company: "Portfolio and client projects",
     period: "Ongoing",
     description:
-      "CaseFlow (multi-tenant legal SaaS), Zarpay (cross-border remittance), Axon (AI agentic platform), Reelm (self-hosted streaming), DriveBid (reverse-auction ride-hailing), ChatPDF, Kong Redis plugin, and more.",
+      "CaseFlow (multi-tenant legal SaaS), Zarpay (cross-border remittance), Axon (AI agentic platform), Reelm (self-hosted streaming), DriveBid (reverse-auction ride-hailing), Tracklane, n8n Agent Studio, ChatPDF, Kong Redis plugin, and more.",
   },
 ];
 
@@ -29,11 +29,11 @@ const stacks = [
   {
     heading: "Backend",
     items: [
-      "Laravel 12 / PHP 8.2",
       "Python / FastAPI / Django",
       "Node.js / TypeScript",
       "Golang",
-      "Ruby on Rails",
+      "Ruby on Rails 8",
+      "Laravel 12 / PHP 8.2",
     ],
   },
   {
@@ -89,7 +89,7 @@ const stacks = [
 ];
 ---
 
-<Layout title="About — Atif Ali" description="Senior Software Architect with 20+ years shipping production systems across the full stack.">
+<Layout title="About — Atif Ali" description="Senior Software Architect with 20+ years across Python, FastAPI, React, Node, Golang, Laravel. Multi-tenant SaaS, AI agents, fintech, and APIs at scale.">
   <section class="mx-auto max-w-4xl px-6 pt-14 pb-8 md:pt-20">
     <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
       About
@@ -101,10 +101,36 @@ const stacks = [
     </h1>
     <p class="mt-5 text-lg leading-relaxed text-slate-300">
       Senior Software Architect with 20+ years shipping production systems.
-      I work primarily with Laravel, Python, FastAPI, React, Node, and Golang,
+      I work primarily with Python, FastAPI, React, Node, Golang, and Laravel,
       and I own projects end to end: scoping, system design, code, CI/CD,
       Docker, and deployment.
     </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a
+        href="/atif-ali-resume.pdf"
+        download
+        class="theme-cta group inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-white transition-all"
+      >
+        <svg
+          class="h-4 w-4"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"></path>
+        </svg>
+        Download resume (PDF)
+      </a>
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+      >
+        Get in touch
+      </a>
+    </div>
   </section>
 
   <section class="mx-auto max-w-4xl px-6 py-10">
@@ -142,7 +168,7 @@ const stacks = [
     </div>
   </section>
 
-  <section class="mx-auto max-w-4xl px-6 py-10">
+  <section id="experience" class="mx-auto max-w-4xl px-6 py-10 scroll-mt-20">
     <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
       Experience
     </h2>
@@ -170,7 +196,7 @@ const stacks = [
     </div>
   </section>
 
-  <section class="mx-auto max-w-4xl px-6 py-10">
+  <section id="toolbox" class="mx-auto max-w-4xl px-6 py-10 scroll-mt-20">
     <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
       Toolbox
     </h2>
@@ -207,7 +233,7 @@ const stacks = [
 
   <section class="mx-auto max-w-4xl px-6 py-16">
     <div
-      class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 p-8 md:p-12"
+      class="theme-cta-section relative overflow-hidden rounded-3xl border border-white/10 p-8 md:p-12"
     >
       <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
         Let's build something together

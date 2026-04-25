@@ -1,0 +1,161 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const sections = [
+  {
+    heading: "Engagement",
+    items: [
+      {
+        q: "What kind of work are you taking on?",
+        a: "Multi-tenant SaaS builds, AI platforms, fintech and payments, and APIs at scale. I take on greenfield builds, scoped feature additions, rescue work, and architecture reviews. I do not take on pure design work or pure WordPress theming.",
+      },
+      {
+        q: "Hourly, fixed price, or retainer?",
+        a: "All three. Hourly for ambiguous scope or research work. Fixed price for milestones with a clear deliverable. Retainer for ongoing partnerships of 3+ months. I can also work fixed-price for a discovery phase, then move to hourly or retainer for the build.",
+      },
+      {
+        q: "What is your typical engagement size?",
+        a: "Most engagements run 4 to 12 weeks. Smaller scopes are fine if the deliverable is clear. Multi-month retainers are open for the right product fit.",
+      },
+      {
+        q: "Solo or as part of a team?",
+        a: "Both. I work solo end to end on small to medium projects. I also pair into existing teams as a senior architect, a tech lead, or a code reviewer.",
+      },
+    ],
+  },
+  {
+    heading: "Working style",
+    items: [
+      {
+        q: "Where are you based and what is your time zone?",
+        a: "Pakistan (PKT, UTC+5). I overlap several hours daily with UK, Europe, and the East Coast US. West Coast US overlap is morning-only on my side.",
+      },
+      {
+        q: "How do you communicate during a project?",
+        a: "Async by default with daily updates in writing. Live calls for kickoff, milestone demos, and unblocking. Slack, Linear, GitHub, and email all work for me.",
+      },
+      {
+        q: "How often do I see progress?",
+        a: "Demos at the end of every shipped milestone. For longer projects, weekly Loom or written updates between demos. Code is pushed to GitHub continuously, never batched into one big drop at the end.",
+      },
+      {
+        q: "Do you work on weekends?",
+        a: "Sometimes, by choice. I do not commit to weekend availability and I do not bill weekends as overtime. If a launch needs weekend coverage, we plan it.",
+      },
+    ],
+  },
+  {
+    heading: "Process",
+    items: [
+      {
+        q: "What does a typical kickoff look like?",
+        a: "60 to 90 minutes. We walk through the problem you are solving, who the user is, success criteria, and the constraints (timeline, budget, integrations, team). I leave with enough to write a tight scope doc within 48 hours.",
+      },
+      {
+        q: "How do you handle scope creep?",
+        a: "New scope is welcome but it lands in a parking lot, not the current sprint. We review the parking lot at each milestone and decide together what is in scope, what is a phase 2, and what is out.",
+      },
+      {
+        q: "What does delivery look like?",
+        a: "Code in your repo, deployed to your infrastructure (or to a target you control), with a written handoff doc covering architecture, deploy, and operations. No vendor lock-in to my tooling.",
+      },
+    ],
+  },
+  {
+    heading: "Legal and IP",
+    items: [
+      {
+        q: "Who owns the code?",
+        a: "You do, on payment. I assign rights on the contract. I do reserve the right to discuss generic patterns publicly (blog posts about Stripe Cashier integration, for example), but never client specifics.",
+      },
+      {
+        q: "Will you sign an NDA?",
+        a: "Yes. I will sign a mutual NDA before any non-public scoping discussion. I prefer mutual NDAs and I will push back on overly broad confidentiality clauses that try to restrict my generic skills or future work.",
+      },
+      {
+        q: "Can I keep my project private?",
+        a: "Yes. Anything we agree is private stays private — no case study, no GitHub showcase, no LinkedIn mention. The default for non-named work is private; I ask before featuring anything publicly.",
+      },
+    ],
+  },
+  {
+    heading: "Pricing",
+    items: [
+      {
+        q: "What does this cost?",
+        a: "Depends on scope, depth, and whether the engagement is hourly, fixed price, or retainer. After a 60-minute scoping call I can quote with a 1 to 2 day turnaround.",
+      },
+      {
+        q: "Do you offer discounts or trial periods?",
+        a: "No discounts. For new engagements I am open to scoping a small first milestone (a week or two) to de-risk the working relationship before committing to the full project.",
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="FAQ — Atif Ali"
+  description="Engagement model, working style, process, IP and NDA stance, and pricing for senior contract work."
+>
+  <section class="mx-auto max-w-3xl px-6 pt-14 pb-8 md:pt-20">
+    <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
+      FAQ
+    </p>
+    <h1
+      class="mt-2 text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl"
+    >
+      Common <span class="gradient-text">questions</span>
+    </h1>
+    <p class="mt-4 max-w-2xl text-base text-slate-400">
+      Pre-empts the questions that come up in nearly every inbound. If
+      anything's missing, ask on the contact page.
+    </p>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-6 pb-20">
+    <div class="space-y-10">
+      {
+        sections.map((section) => (
+          <div>
+            <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
+              {section.heading}
+            </h2>
+            <div class="mt-5 space-y-3">
+              {section.items.map((item) => (
+                <details class="group rounded-2xl border border-white/10 bg-slate-900/40 p-5 backdrop-blur-sm transition-colors hover:bg-slate-900/60 open:bg-slate-900/60">
+                  <summary class="flex cursor-pointer list-none items-start justify-between gap-4">
+                    <span class="font-semibold text-white">{item.q}</span>
+                    <svg
+                      class="h-5 w-5 shrink-0 text-slate-400 transition-transform group-open:rotate-45"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </summary>
+                  <p class="mt-3 leading-relaxed text-slate-300">{item.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 rounded-2xl border border-white/10 bg-slate-900/30 p-6 text-sm text-slate-400">
+      <h3 class="font-semibold text-white">Still have a question?</h3>
+      <p class="mt-2">
+        Drop me a message on the
+        <a href="/contact" class="text-indigo-300 hover:text-indigo-200">
+          contact page
+        </a>
+        and I'll get back within 24 hours.
+      </p>
+    </div>
+  </section>
+</Layout>

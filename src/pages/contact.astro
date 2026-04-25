@@ -5,6 +5,13 @@ const sent = Astro.url.searchParams.get("sent") === "1";
 
 const channels = [
   {
+    name: "Email",
+    value: "aatifali21@gmail.com",
+    href: "mailto:aatifali21@gmail.com",
+    description: "Best for detailed project briefs, NDAs, or anything that needs a paper trail.",
+    icon: "M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm0 0l8 7 8-7",
+  },
+  {
     name: "LinkedIn",
     value: "linkedin.com/in/-atifali-",
     href: "https://www.linkedin.com/in/-atifali-/",
@@ -42,7 +49,7 @@ const channels = [
 ];
 ---
 
-<Layout title="Contact — Atif Ali" description="Open to senior contract work. Send me a message or reach me via LinkedIn or GitHub.">
+<Layout title="Contact — Atif Ali" description="Open to senior contract work across multi-tenant SaaS, AI platforms, fintech, and APIs at scale. Reply within 24 hours.">
   <section class="mx-auto max-w-3xl px-6 pt-14 pb-8 md:pt-20">
     <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
       Contact
@@ -169,7 +176,7 @@ const channels = [
         </p>
         <button
           type="submit"
-          class="group inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all hover:shadow-indigo-500/40"
+          class="theme-cta group inline-flex items-center justify-center gap-2 rounded-lg px-6 py-2.5 text-sm font-semibold text-white transition-all"
         >
           Send message
           <svg

@@ -5,6 +5,15 @@
   --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
 }
 
+:root {
+  /* Default theme: Indigo / Purple / Pink. Overridden at runtime by inline script in Layout.astro. */
+  --theme-c1: 129 140 248;
+  --theme-c2: 192 132 252;
+  --theme-c3: 244 114 182;
+  --theme-c1-strong: 99 102 241;
+  --theme-c2-strong: 168 85 247;
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -26,22 +35,60 @@
 
 @layer utilities {
   .gradient-text {
-    background: linear-gradient(135deg, #818cf8 0%, #c084fc 50%, #f472b6 100%);
+    background: linear-gradient(
+      135deg,
+      rgb(var(--theme-c1)) 0%,
+      rgb(var(--theme-c2)) 50%,
+      rgb(var(--theme-c3)) 100%
+    );
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
 
+  .theme-blob-1 { background-color: rgb(var(--theme-c1) / 0.2); }
+  .theme-blob-2 { background-color: rgb(var(--theme-c2) / 0.1); }
+  .theme-blob-3 { background-color: rgb(var(--theme-c3) / 0.1); }
+
+  .theme-cta {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--theme-c1-strong)) 0%,
+      rgb(var(--theme-c2-strong)) 100%
+    );
+    box-shadow: 0 10px 30px -10px rgb(var(--theme-c1-strong) / 0.4);
+  }
+  .theme-cta:hover {
+    box-shadow: 0 14px 34px -8px rgb(var(--theme-c1-strong) / 0.55);
+  }
+
+  .theme-cta-section {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--theme-c1) / 0.10) 0%,
+      rgb(var(--theme-c2) / 0.10) 50%,
+      rgb(var(--theme-c3) / 0.10) 100%
+    );
+  }
+
+  .theme-cta-section-glow {
+    background: radial-gradient(
+      circle at 50% 0%,
+      rgb(var(--theme-c1-strong) / 0.25),
+      transparent 60%
+    );
+  }
+
   .gradient-border {
     position: relative;
     background: linear-gradient(#0f172a, #0f172a) padding-box,
-      linear-gradient(135deg, rgba(129, 140, 248, 0.4), rgba(192, 132, 252, 0.4)) border-box;
+      linear-gradient(135deg, rgb(var(--theme-c1) / 0.4), rgb(var(--theme-c2) / 0.4)) border-box;
     border: 1px solid transparent;
   }
 
   .glow {
-    box-shadow: 0 0 80px rgba(129, 140, 248, 0.15);
+    box-shadow: 0 0 80px rgb(var(--theme-c1) / 0.15);
   }
 
   .noise {

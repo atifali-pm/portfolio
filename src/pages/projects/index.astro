@@ -3,10 +3,11 @@ import Layout from "../../layouts/Layout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
 import { projects } from "../../data/projects";
 
-const categories = Array.from(new Set(projects.map((p) => p.category)));
+const statuses = Array.from(new Set(projects.map((p) => p.status)));
+const categories = Array.from(new Set(projects.map((p) => p.category))).sort();
 ---
 
-<Layout title="Projects — Atif Ali" description="Full case studies across SaaS, AI, fintech, streaming, and mobile.">
+<Layout title="Projects — Atif Ali" description="11 full case studies across multi-tenant SaaS, AI platforms, fintech, mobile, streaming, and infrastructure. Filter by status or category.">
   <section class="mx-auto max-w-6xl px-6 pt-14 pb-8 md:pt-20">
     <p class="text-sm font-medium uppercase tracking-widest text-indigo-300">
       Case studies
@@ -20,20 +21,112 @@ const categories = Array.from(new Set(projects.map((p) => p.category)));
       Full case studies for every project. Problem, goals, solution,
       architecture decisions, flows, and what I learned shipping it.
     </p>
-    <div class="mt-6 flex flex-wrap gap-2">
-      {
-        categories.map((cat) => (
-          <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
-            {cat}
-          </span>
-        ))
-      }
-    </div>
   </section>
 
-  <section class="mx-auto max-w-6xl px-6 pb-20">
-    <div class="grid gap-6 md:grid-cols-2">
+  <section class="mx-auto max-w-6xl px-6 pb-20" data-projects-section>
+    <div class="mb-8 space-y-3">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mr-1">
+          Status
+        </span>
+        <button
+          type="button"
+          data-filter="status"
+          data-value="all"
+          aria-pressed="true"
+          class="filter-chip rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white transition-colors aria-pressed:bg-white aria-pressed:text-slate-950"
+        >
+          All
+        </button>
+        {
+          statuses.map((s) => (
+            <button
+              type="button"
+              data-filter="status"
+              data-value={s}
+              aria-pressed="false"
+              class="filter-chip rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 transition-colors hover:bg-white/10 aria-pressed:bg-white aria-pressed:text-slate-950"
+            >
+              {s}
+            </button>
+          ))
+        }
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="text-[11px] font-semibold uppercase tracking-widest text-slate-500 mr-1">
+          Category
+        </span>
+        <button
+          type="button"
+          data-filter="category"
+          data-value="all"
+          aria-pressed="true"
+          class="filter-chip rounded-full border border-white/15 bg-white/10 px-3 py-1 text-xs font-medium text-white transition-colors aria-pressed:bg-white aria-pressed:text-slate-950"
+        >
+          All
+        </button>
+        {
+          categories.map((c) => (
+            <button
+              type="button"
+              data-filter="category"
+              data-value={c}
+              aria-pressed="false"
+              class="filter-chip rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300 transition-colors hover:bg-white/10 aria-pressed:bg-white aria-pressed:text-slate-950"
+            >
+              {c}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div data-projects-empty hidden class="rounded-2xl border border-white/10 bg-slate-900/40 p-8 text-center text-slate-400">
+      No projects match this filter.
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2" data-shuffle data-projects-grid>
       {projects.map((project) => <ProjectCard project={project} />)}
     </div>
   </section>
+
+  <script is:inline>
+    (function () {
+      const section = document.querySelector("[data-projects-section]");
+      if (!section) return;
+      const grid = section.querySelector("[data-projects-grid]");
+      const empty = section.querySelector("[data-projects-empty]");
+      const state = { status: "all", category: "all" };
+      function applyFilters() {
+        const cards = grid.querySelectorAll("a[data-status]");
+        let visible = 0;
+        cards.forEach((c) => {
+          const s = c.dataset.status || "";
+          const cat = c.dataset.category || "";
+          const ok =
+            (state.status === "all" || s === state.status) &&
+            (state.category === "all" || cat === state.category);
+          c.style.display = ok ? "" : "none";
+          if (ok) visible++;
+        });
+        empty.hidden = visible !== 0;
+      }
+      section.querySelectorAll(".filter-chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const filter = btn.dataset.filter;
+          const value = btn.dataset.value;
+          state[filter] = value;
+          section
+            .querySelectorAll(`.filter-chip[data-filter="${filter}"]`)
+            .forEach((b) =>
+              b.setAttribute(
+                "aria-pressed",
+                b.dataset.value === value ? "true" : "false"
+              )
+            );
+          applyFilters();
+        });
+      });
+    })();
+  </script>
 </Layout>

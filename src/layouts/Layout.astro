@@ -6,12 +6,53 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
+  jsonLd?: object | null;
 }
 
 const {
   title = "Atif Ali — Senior Software Architect",
-  description = "Senior Software Architect with 20+ years building production systems across Laravel, Python/FastAPI, React/TypeScript, Node.js, and Golang.",
+  description = "Senior Software Architect with 20+ years building production systems across Python, FastAPI, React, Node, Golang, and Laravel.",
+  ogImage = "/profile-avatar.jpg",
+  jsonLd = null,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImageUrl = ogImage.startsWith("http")
+  ? ogImage
+  : new URL(ogImage, Astro.site).href;
+
+const defaultJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Atif Ali",
+  url: "https://atifali.pages.dev",
+  jobTitle: "Senior Software Architect",
+  description,
+  sameAs: [
+    "https://github.com/atifali-pm",
+    "https://www.linkedin.com/in/-atifali-/",
+    "https://www.upwork.com/freelancers/~014858668202b87161",
+    "https://www.fiverr.com/aatif_ali",
+    "https://contra.com/atif_ali_awtxw4wu/work",
+  ],
+  knowsAbout: [
+    "Multi-tenant SaaS",
+    "AI agents",
+    "RAG and pgvector",
+    "Fintech",
+    "Stripe Cashier",
+    "Postgres RLS",
+    "Laravel",
+    "Python",
+    "FastAPI",
+    "React",
+    "Next.js",
+    "Golang",
+  ],
+};
+
+const finalJsonLd = jsonLd ?? defaultJsonLd;
 ---
 
 <!doctype html>
@@ -28,10 +69,68 @@ const {
       rel="stylesheet"
     />
     <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="Atif Ali" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(finalJsonLd)}
+    />
     <title>{title}</title>
+    <script is:inline>
+      // Theme randomization. Runs synchronously before paint to avoid flash.
+      (function () {
+        const THEMES = [
+          // c1, c2, c3 are the three accent colors used in gradient text + blur blobs.
+          // c1Strong / c2Strong are saturated versions used for solid CTA buttons.
+          { c1: "129 140 248", c2: "192 132 252", c3: "244 114 182", c1Strong: "99 102 241",  c2Strong: "168 85 247"  }, // Indigo / Purple / Pink (default)
+          { c1: "52 211 153",  c2: "34 211 238",  c3: "45 212 191",  c1Strong: "16 185 129",  c2Strong: "6 182 212"   }, // Emerald / Cyan / Teal
+          { c1: "251 191 36",  c2: "251 146 60",  c3: "251 113 133", c1Strong: "245 158 11",  c2Strong: "249 115 22"  }, // Amber / Orange / Rose
+          { c1: "56 189 248",  c2: "167 139 250", c3: "232 121 249", c1Strong: "14 165 233",  c2Strong: "139 92 246"  }, // Sky / Violet / Fuchsia
+          { c1: "148 163 184", c2: "96 165 250",  c3: "129 140 248", c1Strong: "59 130 246",  c2Strong: "99 102 241"  }, // Slate / Blue / Indigo
+          { c1: "251 113 133", c2: "232 121 249", c3: "244 114 182", c1Strong: "244 63 94",   c2Strong: "217 70 239"  }, // Rose / Fuchsia / Pink
+          { c1: "163 230 53",  c2: "52 211 153",  c3: "56 189 248",  c1Strong: "132 204 22",  c2Strong: "16 185 129"  }, // Lime / Emerald / Sky
+          { c1: "248 113 113", c2: "251 146 60",  c3: "250 204 21",  c1Strong: "239 68 68",   c2Strong: "249 115 22"  }, // Red / Orange / Yellow
+          { c1: "250 204 21",  c2: "163 230 53",  c3: "34 211 238",  c1Strong: "234 179 8",   c2Strong: "132 204 22"  }, // Yellow / Lime / Cyan
+          { c1: "45 212 191",  c2: "56 189 248",  c3: "129 140 248", c1Strong: "20 184 166",  c2Strong: "14 165 233"  }, // Teal / Sky / Indigo
+          { c1: "232 121 249", c2: "192 132 252", c3: "129 140 248", c1Strong: "217 70 239",  c2Strong: "168 85 247"  }, // Fuchsia / Purple / Indigo
+          { c1: "110 231 183", c2: "103 232 249", c3: "196 181 253", c1Strong: "16 185 129",  c2Strong: "6 182 212"   }, // Mint / Cyan / Violet
+          { c1: "74 222 128",  c2: "52 211 153",  c3: "163 230 53",  c1Strong: "34 197 94",   c2Strong: "16 185 129"  }, // Green / Emerald / Lime
+          { c1: "96 165 250",  c2: "129 140 248", c3: "167 139 250", c1Strong: "59 130 246",  c2Strong: "99 102 241"  }, // Blue / Indigo / Violet
+          { c1: "196 181 253", c2: "110 231 183", c3: "244 114 182", c1Strong: "168 85 247",  c2Strong: "16 185 129"  }, // Lavender / Mint / Pink
+          { c1: "251 146 60",  c2: "250 204 21",  c3: "163 230 53",  c1Strong: "249 115 22",  c2Strong: "234 179 8"   }, // Orange / Yellow / Lime
+          { c1: "34 211 238",  c2: "56 189 248",  c3: "96 165 250",  c1Strong: "6 182 212",   c2Strong: "14 165 233"  }, // Cyan / Sky / Blue
+          { c1: "167 139 250", c2: "232 121 249", c3: "244 114 182", c1Strong: "139 92 246",  c2Strong: "217 70 239"  }, // Violet / Fuchsia / Pink
+          { c1: "248 113 113", c2: "251 113 133", c3: "244 114 182", c1Strong: "239 68 68",   c2Strong: "244 63 94"   }, // Red / Rose / Pink
+          { c1: "251 191 36",  c2: "250 204 21",  c3: "163 230 53",  c1Strong: "245 158 11",  c2Strong: "234 179 8"   }, // Amber / Yellow / Lime
+          { c1: "45 212 191",  c2: "52 211 153",  c3: "74 222 128",  c1Strong: "20 184 166",  c2Strong: "16 185 129"  }, // Teal / Emerald / Green
+          { c1: "148 163 184", c2: "129 140 248", c3: "167 139 250", c1Strong: "100 116 139", c2Strong: "99 102 241"  }, // Slate / Indigo / Violet
+          { c1: "192 132 252", c2: "129 140 248", c3: "96 165 250",  c1Strong: "168 85 247",  c2Strong: "99 102 241"  }, // Purple / Indigo / Blue
+          { c1: "163 230 53",  c2: "34 211 238",  c3: "56 189 248",  c1Strong: "132 204 22",  c2Strong: "6 182 212"   }, // Lime / Cyan / Sky
+          { c1: "129 140 248", c2: "56 189 248",  c3: "34 211 238",  c1Strong: "99 102 241",  c2Strong: "14 165 233"  }, // Indigo / Sky / Cyan
+        ];
+        const theme = THEMES[Math.floor(Math.random() * THEMES.length)];
+        const root = document.documentElement;
+        root.style.setProperty("--theme-c1", theme.c1);
+        root.style.setProperty("--theme-c2", theme.c2);
+        root.style.setProperty("--theme-c3", theme.c3);
+        root.style.setProperty("--theme-c1-strong", theme.c1Strong);
+        root.style.setProperty("--theme-c2-strong", theme.c2Strong);
+      })();
+    </script>
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "83f80cb9eeaa42b3a4285388a2f676ea"}'
+    ></script>
   </head>
   <body class="min-h-screen bg-slate-950 text-slate-200 antialiased">
     <div
@@ -39,15 +138,15 @@ const {
       aria-hidden="true"
     >
       <div
-        class="absolute -top-40 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full bg-indigo-500/20 blur-[120px]"
+        class="theme-blob-1 absolute -top-40 left-1/2 h-[500px] w-[900px] -translate-x-1/2 rounded-full blur-[120px]"
       >
       </div>
       <div
-        class="absolute top-[30%] right-0 h-[400px] w-[600px] rounded-full bg-purple-500/10 blur-[120px]"
+        class="theme-blob-2 absolute top-[30%] right-0 h-[400px] w-[600px] rounded-full blur-[120px]"
       >
       </div>
       <div
-        class="absolute bottom-0 left-0 h-[400px] w-[600px] rounded-full bg-pink-500/10 blur-[120px]"
+        class="theme-blob-3 absolute bottom-0 left-0 h-[400px] w-[600px] rounded-full blur-[120px]"
       >
       </div>
     </div>
@@ -58,5 +157,156 @@ const {
       </main>
       <Footer />
     </div>
+    <script is:inline>
+      // Popovers (clickable stat cards) — picks 5 random items from a shared pool on each open
+      (function () {
+        function getPools() {
+          const el = document.getElementById("popover-pools");
+          if (!el) return null;
+          try { return JSON.parse(el.textContent || "{}"); } catch (e) { return null; }
+        }
+        function pickRandom(arr, n) {
+          if (!arr || !arr.length) return [];
+          const copy = arr.slice();
+          for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+          }
+          return copy.slice(0, Math.min(n, copy.length));
+        }
+        function escape(s) {
+          return String(s).replace(/[&<>"']/g, (ch) => ({
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
+          }[ch]));
+        }
+        function renderItems(listEl, items) {
+          listEl.innerHTML = items.map((item) => `
+            <li>
+              <a href="${escape(item.href)}" class="group/row flex items-start gap-2 rounded-lg px-2 py-2 transition-colors hover:bg-white/5">
+                <div class="min-w-0 flex-1">
+                  <div class="truncate text-sm font-medium text-white">${escape(item.title)}</div>
+                  <div class="truncate text-xs text-slate-400">${escape(item.meta)}</div>
+                </div>
+                <svg class="mt-0.5 h-4 w-4 shrink-0 text-slate-600 transition-colors group-hover/row:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7" /></svg>
+              </a>
+            </li>`).join("");
+        }
+        function closeAll() {
+          document.querySelectorAll("[data-popover-target]").forEach((p) => {
+            if (!p.hidden) {
+              p.hidden = true;
+              const triggerId = p.dataset.popoverTarget;
+              const trigger = document.querySelector(`[data-popover-trigger="${triggerId}"]`);
+              if (trigger) trigger.setAttribute("aria-expanded", "false");
+            }
+          });
+        }
+        document.addEventListener("click", (e) => {
+          const trigger = e.target.closest("[data-popover-trigger]");
+          if (trigger) {
+            const id = trigger.dataset.popoverTrigger;
+            const poolName = trigger.dataset.popoverPool;
+            const target = document.querySelector(`[data-popover-target="${id}"]`);
+            if (!target) return;
+            const wasOpen = !target.hidden;
+            closeAll();
+            if (!wasOpen) {
+              if (poolName) {
+                const pools = getPools();
+                const pool = pools && pools[poolName];
+                const list = target.querySelector("[data-popover-list]");
+                if (pool && list) renderItems(list, pickRandom(pool, 5));
+              }
+              target.hidden = false;
+              trigger.setAttribute("aria-expanded", "true");
+            }
+            e.stopPropagation();
+            return;
+          }
+          if (!e.target.closest("[data-popover-target]")) closeAll();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeAll();
+        });
+      })();
+
+      // Animated counters
+      (function () {
+        function animate(el) {
+          const target = parseInt(el.dataset.countTarget || "0", 10);
+          const suffix = el.dataset.countSuffix || "";
+          if (!target) return;
+          const duration = 900;
+          const start = performance.now();
+          function tick(now) {
+            const t = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            const value = Math.round(target * eased);
+            el.textContent = value + (t === 1 ? suffix : "");
+            if (t < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+        const els = document.querySelectorAll("[data-count-target]");
+        if (!els.length) return;
+        if (!("IntersectionObserver" in window)) {
+          els.forEach(animate);
+          return;
+        }
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animate(entry.target);
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        els.forEach((el) => {
+          el.textContent = "0" + (el.dataset.countSuffix || "");
+          io.observe(el);
+        });
+      })();
+
+      // Random-within-status shuffle
+      (function () {
+        const STATUS_ORDER = ["Live", "In development", "Open source"];
+        function shuffleArray(arr) {
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          return arr;
+        }
+        function shuffleByStatus(container) {
+          const children = Array.from(container.children);
+          const buckets = new Map();
+          STATUS_ORDER.forEach((s) => buckets.set(s, []));
+          buckets.set("__other__", []);
+          children.forEach((child) => {
+            const s = child.dataset.status;
+            if (s && buckets.has(s)) {
+              buckets.get(s).push(child);
+            } else {
+              buckets.get("__other__").push(child);
+            }
+          });
+          const ordered = [];
+          STATUS_ORDER.forEach((s) => ordered.push(...shuffleArray(buckets.get(s))));
+          ordered.push(...shuffleArray(buckets.get("__other__")));
+          ordered.forEach((child) => container.appendChild(child));
+          container.dataset.shuffled = "true";
+        }
+        function run() {
+          document
+            .querySelectorAll("[data-shuffle]:not([data-shuffled])")
+            .forEach(shuffleByStatus);
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", run);
+        } else {
+          run();
+        }
+      })();
+    </script>
   </body>
 </html>

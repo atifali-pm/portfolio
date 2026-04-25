@@ -17,11 +17,31 @@ const statusColors: Record<string, string> = {
   "In development": "bg-amber-500/10 text-amber-300 border-amber-500/20",
   "Open source": "bg-sky-500/10 text-sky-300 border-sky-500/20",
 };
+
+const caseStudyJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.name,
+  headline: project.name,
+  description: project.tagline,
+  image: project.banner
+    ? new URL(project.banner, Astro.site).href
+    : undefined,
+  about: project.category,
+  keywords: project.stack.join(", "),
+  creator: {
+    "@type": "Person",
+    name: "Atif Ali",
+    url: "https://atifali.pages.dev",
+  },
+};
 ---
 
 <Layout
   title={`${project.name} — Atif Ali`}
   description={project.tagline}
+  ogImage={project.banner}
+  jsonLd={caseStudyJsonLd}
 >
   <article class="mx-auto max-w-4xl px-6 pt-16 pb-20 md:pt-24">
     <a
@@ -269,7 +289,7 @@ const statusColors: Record<string, string> = {
     </section>
 
     <section
-      class="mt-16 rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-500/10 via-purple-500/10 to-pink-500/10 p-8 md:p-12"
+      class="theme-cta-section mt-16 rounded-3xl border border-white/10 p-8 md:p-12"
     >
       <h2 class="text-2xl font-bold tracking-tight text-white">
         Want something like {project.name}?
