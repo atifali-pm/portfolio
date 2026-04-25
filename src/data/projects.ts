@@ -31,104 +31,13 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "caseflow",
-    name: "CaseFlow",
-    tagline: "Multi-tenant case management SaaS for legal practices, consultants, and coaches.",
-    summary:
-      "Flagship Laravel SaaS built end to end across 10 tagged phases. Multi-tenant isolation via global scope, Stripe Cashier billing, client portal on Livewire, and HMAC-signed outgoing webhooks.",
-    status: "Live",
-    year: "2026",
-    category: "SaaS",
-    featured: true,
-    stack: [
-      "Laravel 12",
-      "PHP 8.2",
-      "Filament 3",
-      "Livewire 3",
-      "Stripe Cashier",
-      "Sanctum",
-      "PostgreSQL 16",
-      "Docker",
-      "DomPDF",
-    ],
-    links: [
-      { label: "GitHub", url: "https://github.com/atifali-pm/caseflow" },
-    ],
-    banner: "/projects/caseflow-banner.jpg",
-    gallery: [
-      { src: "/projects/caseflow/01-admin-dashboard.jpg", caption: "Admin dashboard with cases, clients, and quick actions" },
-      { src: "/projects/caseflow/02-kanban-board.jpg", caption: "Kanban board for case workflow states" },
-      { src: "/projects/caseflow/05-client-portal.jpg", caption: "Livewire client portal with documents and messaging" },
-      { src: "/projects/caseflow/07-case-detail.jpg", caption: "Case detail view with tabs for tasks, time, and invoices" },
-      { src: "/projects/caseflow/03-invoice-pdf.jpg", caption: "PDF invoice generation via DomPDF" },
-      { src: "/projects/caseflow/04-reports-dashboard.jpg", caption: "Reports dashboard with charts and CSV export" },
-      { src: "/projects/caseflow/09-api-tokens.jpg", caption: "Per-user Sanctum API token management" },
-      { src: "/projects/caseflow/10-webhooks.jpg", caption: "HMAC-SHA256 signed outgoing webhooks" },
-    ],
-    hero: {
-      problem:
-        "Law firms, consultants, and coaches cobble together spreadsheets, Dropbox, and email for case management. Legal-specific SaaS like Clio or MyCase costs $80 to $120 per user per month and locks you into a vendor silo. Small practices need real multi-tenant isolation, a client portal that is not a second admin panel, and transparent billing without the enterprise price tag.",
-      goals: [
-        "Real multi-tenant isolation with no chance of cross-tenant data leakage",
-        "A client portal that feels like a product, not a downgraded admin UI",
-        "Stripe billing with three tiers and clean upgrade and downgrade flows",
-        "PDF invoicing that renders cleanly on both screen and print",
-        "REST API with per-user token management and HMAC-signed outgoing webhooks",
-      ],
-      solution: [
-        "Admin console for providers built on Filament 3 with kanban and calendar views",
-        "Separate Livewire 3 client portal for end users with document upload and chat",
-        "Stripe Cashier integration with three pricing tiers and seat-based limits",
-        "PDF invoice generation with DomPDF and CSV export for reports",
-        "Sanctum REST API with per-user tokens and HMAC-SHA256 signed outgoing webhooks",
-        "Custom lightweight activity log trait, no heavy package dependencies",
-      ],
-      role: [
-        "Architecture and multi-tenancy design (global scope on provider_id, no tenancy package)",
-        "Laravel 12 backend with Filament 3 admin console",
-        "Livewire 3 client portal with real-time updates",
-        "Stripe Cashier billing integration",
-        "HMAC webhook signing and verification patterns",
-        "Docker deployment and CI with GitHub Actions",
-      ],
-      ui: "Laravel-native Tailwind and Livewire with no second framework layered on. Provider admin aesthetic intentionally separated from client portal aesthetic so the two surfaces read as distinct products.",
-      flows: [
-        {
-          title: "Provider workflow",
-          steps: [
-            "Sign in to provider admin console",
-            "Create a new case with milestones and documents",
-            "Invite a client to the portal via email",
-            "Log time entries and expenses against the case",
-            "Generate a PDF invoice and send via Stripe for payment",
-          ],
-        },
-        {
-          title: "Client portal workflow",
-          steps: [
-            "Client signs in through a separate portal domain",
-            "Views case timeline, milestones, and documents",
-            "Uploads signed documents and sends messages",
-            "Pays invoices via Stripe-hosted checkout",
-          ],
-        },
-      ],
-      learnings: [
-        "Global scopes for tenancy beat packaged tenancy solutions for anything short of subdomain isolation",
-        "A dedicated Livewire client portal converts better than trying to reskin the admin for end users",
-        "HMAC webhook patterns generalize cleanly across every SaaS product that needs outbound notifications",
-        "A custom 50-line activity log trait is lighter and easier to reason about than a Spatie dependency for most cases",
-      ],
-    },
-  },
-  {
     slug: "zarpay",
     name: "Zarpay",
     tagline: "Cross-border UK to Pakistan money transfer with disclosed spreads and real KYC.",
     summary:
       "Full-stack remittance platform on a single corridor. Next.js 15 monolith, Expo React Native sender app, operations panel, AML rule engine, KYC document capture, and provider-agnostic payment-in, payout, FX, and OTP interfaces.",
     status: "Live",
-    year: "2024",
+    year: "2026",
     category: "Fintech",
     featured: true,
     stack: [
@@ -148,11 +57,11 @@ export const projects: Project[] = [
     ],
     banner: "/projects/zarpay-banner.jpg",
     gallery: [
-      { src: "/projects/zarpay/01-dashboard.jpg", caption: "Sender dashboard with balance and quick actions" },
-      { src: "/projects/zarpay/02-send-amount.jpg", caption: "Amount entry with live rate and disclosed fee" },
-      { src: "/projects/zarpay/03-send-review.jpg", caption: "Quote review with 60-minute lock" },
-      { src: "/projects/zarpay/04-transfer-detail.jpg", caption: "Transfer status timeline" },
-      { src: "/projects/zarpay/07-kyc.jpg", caption: "KYC document capture with retry flow" },
+      { src: "/projects/zarpay/01-hero-sender.jpg", caption: "Sender app dashboard with balance and recent transfers" },
+      { src: "/projects/zarpay/02-send-flow.jpg", caption: "Send flow: amount, quote review, and transfer status" },
+      { src: "/projects/zarpay/03-recipients.jpg", caption: "Recipient management with saved bank details" },
+      { src: "/projects/zarpay/04-kyc.jpg", caption: "KYC document capture with retry flow" },
+      { src: "/projects/zarpay/05-main-hero.jpg", caption: "Cross-border fintech on mobile, end to end" },
     ],
     hero: {
       problem:
@@ -305,7 +214,7 @@ export const projects: Project[] = [
     summary:
       "Production-grade streaming alternative that deploys with a single command. Adaptive HLS playback, live FFmpeg transcoding, watch rooms, mood-based discovery, and a full admin console with drag-and-drop uploads.",
     status: "Live",
-    year: "2020",
+    year: "2018",
     category: "Streaming",
     featured: true,
     stack: [
@@ -393,7 +302,7 @@ export const projects: Project[] = [
     summary:
       "Two-sided mobile product that flips the ride-hailing pricing model for emerging markets. Shared typed API across both apps, free OSM map tiles, and CI-built APK releases.",
     status: "Live",
-    year: "2021",
+    year: "2026",
     category: "Mobile",
     featured: true,
     stack: [
@@ -477,7 +386,7 @@ export const projects: Project[] = [
     summary:
       "Small-org LMS without the Moodle complexity. Next.js 15 SaaS with Prisma, Postgres, Stripe billing, and an Android APK build for mobile learners.",
     status: "In development",
-    year: "2023",
+    year: "2024",
     category: "LMS",
     featured: true,
     stack: [
@@ -554,6 +463,97 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "caseflow",
+    name: "CaseFlow",
+    tagline: "Multi-tenant case management SaaS for legal practices, consultants, and coaches.",
+    summary:
+      "Flagship Laravel SaaS built end to end across 10 tagged phases. Multi-tenant isolation via global scope, Stripe Cashier billing, client portal on Livewire, and HMAC-signed outgoing webhooks.",
+    status: "Live",
+    year: "2026",
+    category: "SaaS",
+    featured: true,
+    stack: [
+      "Laravel 12",
+      "PHP 8.2",
+      "Filament 3",
+      "Livewire 3",
+      "Stripe Cashier",
+      "Sanctum",
+      "PostgreSQL 16",
+      "Docker",
+      "DomPDF",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/caseflow" },
+    ],
+    banner: "/projects/caseflow-banner.jpg",
+    gallery: [
+      { src: "/projects/caseflow/01-admin-dashboard.jpg", caption: "Admin dashboard with cases, clients, and quick actions" },
+      { src: "/projects/caseflow/02-kanban-board.jpg", caption: "Kanban board for case workflow states" },
+      { src: "/projects/caseflow/05-client-portal.jpg", caption: "Livewire client portal with documents and messaging" },
+      { src: "/projects/caseflow/07-case-detail.jpg", caption: "Case detail view with tabs for tasks, time, and invoices" },
+      { src: "/projects/caseflow/03-invoice-pdf.jpg", caption: "PDF invoice generation via DomPDF" },
+      { src: "/projects/caseflow/04-reports-dashboard.jpg", caption: "Reports dashboard with charts and CSV export" },
+      { src: "/projects/caseflow/09-api-tokens.jpg", caption: "Per-user Sanctum API token management" },
+      { src: "/projects/caseflow/10-webhooks.jpg", caption: "HMAC-SHA256 signed outgoing webhooks" },
+    ],
+    hero: {
+      problem:
+        "Law firms, consultants, and coaches cobble together spreadsheets, Dropbox, and email for case management. Legal-specific SaaS like Clio or MyCase costs $80 to $120 per user per month and locks you into a vendor silo. Small practices need real multi-tenant isolation, a client portal that is not a second admin panel, and transparent billing without the enterprise price tag.",
+      goals: [
+        "Real multi-tenant isolation with no chance of cross-tenant data leakage",
+        "A client portal that feels like a product, not a downgraded admin UI",
+        "Stripe billing with three tiers and clean upgrade and downgrade flows",
+        "PDF invoicing that renders cleanly on both screen and print",
+        "REST API with per-user token management and HMAC-signed outgoing webhooks",
+      ],
+      solution: [
+        "Admin console for providers built on Filament 3 with kanban and calendar views",
+        "Separate Livewire 3 client portal for end users with document upload and chat",
+        "Stripe Cashier integration with three pricing tiers and seat-based limits",
+        "PDF invoice generation with DomPDF and CSV export for reports",
+        "Sanctum REST API with per-user tokens and HMAC-SHA256 signed outgoing webhooks",
+        "Custom lightweight activity log trait, no heavy package dependencies",
+      ],
+      role: [
+        "Architecture and multi-tenancy design (global scope on provider_id, no tenancy package)",
+        "Laravel 12 backend with Filament 3 admin console",
+        "Livewire 3 client portal with real-time updates",
+        "Stripe Cashier billing integration",
+        "HMAC webhook signing and verification patterns",
+        "Docker deployment and CI with GitHub Actions",
+      ],
+      ui: "Laravel-native Tailwind and Livewire with no second framework layered on. Provider admin aesthetic intentionally separated from client portal aesthetic so the two surfaces read as distinct products.",
+      flows: [
+        {
+          title: "Provider workflow",
+          steps: [
+            "Sign in to provider admin console",
+            "Create a new case with milestones and documents",
+            "Invite a client to the portal via email",
+            "Log time entries and expenses against the case",
+            "Generate a PDF invoice and send via Stripe for payment",
+          ],
+        },
+        {
+          title: "Client portal workflow",
+          steps: [
+            "Client signs in through a separate portal domain",
+            "Views case timeline, milestones, and documents",
+            "Uploads signed documents and sends messages",
+            "Pays invoices via Stripe-hosted checkout",
+          ],
+        },
+      ],
+      learnings: [
+        "Global scopes for tenancy beat packaged tenancy solutions for anything short of subdomain isolation",
+        "A dedicated Livewire client portal converts better than trying to reskin the admin for end users",
+        "HMAC webhook patterns generalize cleanly across every SaaS product that needs outbound notifications",
+        "A custom 50-line activity log trait is lighter and easier to reason about than a Spatie dependency for most cases",
+      ],
+    },
+  },
+  {
     slug: "storebridge",
     name: "StoreBridge",
     tagline: "Multi-tenant Shopify SaaS built to pass a cross-tenant security audit.",
@@ -622,7 +622,7 @@ export const projects: Project[] = [
     summary:
       "LangChain-based document intelligence product with OpenAI embeddings, Pinecone retrieval, and Clerk auth. Clean Next.js frontend with streaming responses.",
     status: "Live",
-    year: "2019",
+    year: "2024",
     category: "AI SaaS",
     featured: false,
     stack: [
@@ -682,7 +682,7 @@ export const projects: Project[] = [
     summary:
       "Lua plugin for the Kong framework that adds Redis-backed response caching with configurable TTL and cache keys. Open source.",
     status: "Open source",
-    year: "2017",
+    year: "2016",
     category: "Infrastructure",
     featured: false,
     stack: ["Lua", "Redis", "Kong Plugin Framework"],
@@ -721,6 +721,271 @@ export const projects: Project[] = [
       learnings: [
         "Kong plugins are a clean distribution boundary for cross-cutting gateway features",
         "Redis as a shared cache is still the most pragmatic choice for multi-node gateways",
+      ],
+    },
+  },
+  {
+    slug: "tracklane",
+    name: "Tracklane",
+    tagline: "Modern AI-first Rails 8 project management for teams who want their own.",
+    summary:
+      "Self-hostable multi-tenant project management SaaS built on Rails 8 and Hotwire. Kanban, timeline, wiki, workload, time tracking, and an optional Claude-powered triage layer. 11 of 12 planned phases shipped with strict Postgres Row-Level Security and a 79-test isolation suite proving cross-tenant reads and writes are rejected.",
+    status: "Shipped",
+    year: "2026",
+    category: "PM platform",
+    featured: true,
+    stack: [
+      "Rails 8",
+      "PostgreSQL 16",
+      "pgvector",
+      "Claude",
+      "Hotwire",
+      "Turbo Streams",
+      "Stimulus",
+      "Solid Queue",
+      "Solid Cable",
+      "Tailwind CSS v4",
+      "Kamal 2",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/tracklane" },
+    ],
+    banner: "/projects/tracklane-banner.jpg",
+    gallery: [
+      "/projects/tracklane/01-home-dark.png",
+      "/projects/tracklane/04-kanban.png",
+      "/projects/tracklane/09-timeline.png",
+      "/projects/tracklane/07-workload.png",
+      "/projects/tracklane/08-calendar.png",
+      "/projects/tracklane/05-issue.png",
+      "/projects/tracklane/06-activity.png",
+      "/projects/tracklane/10-ask-ai.png",
+      "/projects/tracklane/13-wiki-empty.png",
+      "/projects/tracklane/11-invitations.png",
+      "/projects/tracklane/12-new-project.png",
+      "/projects/tracklane/02-projects.png",
+    ],
+    hero: {
+      problem:
+        "Most open project management tools show their age in UI, real-time collaboration, and deploy story. Closed SaaS alternatives solve the UX problem but lock teams into vendor silos, usage limits, and weak self-host paths. Teams that need privacy, data sovereignty, or on-prem deploy end up choosing between a modern experience and owning their data. AI features in PM tools usually sit as bolt-ons that do not change how the team actually works.",
+      goals: [
+        "Every surface a 2026 PM user expects: kanban, timeline, calendar, wiki, workload",
+        "Self-hostable on a single VPS with one Kamal deploy command",
+        "AI in the core workflow via triage and ask-your-project chat, off by default and bring-your-own-key",
+        "Strict multi-tenancy enforced at the database, not just in the app layer",
+      ],
+      solution: [
+        "Organizations and projects with role-gated access (admin, manager, member, viewer)",
+        "Issues with status, priority, assignee, start date, due date, comments, and @mentions",
+        "Kanban board with Stimulus drag-and-drop and Turbo Stream live updates across every connected user",
+        "Timeline (Gantt) and calendar views per project, plus a workload view grouping issues by assignee across the organization",
+        "Markdown wiki per project and time tracking per issue with per-user and per-week totals",
+        "Invitation flow with signed tokens and email notifications for assignments, mentions, and pending invites",
+        "Claude-powered issue triage on create: suggested priority, labels, and assignee with confirm or override",
+        "Ask-your-project chat: pgvector retrieval over issues and comments with cited sources inline",
+      ],
+      role: [
+        "Solo developer on architecture, data model, UX, and every phase",
+        "Rails 8 with Hotwire, Turbo Streams, and Solid Cable for real-time collaboration without a React front-end",
+        "Claude integration for triage; pgvector + embeddings pipeline for ask-your-project chat",
+        "Postgres 16 with Row-Level Security on every tenant-scoped table, enforced through a NOSUPERUSER app role",
+        "79 integration tests (200 assertions) that prove cross-tenant SELECT / INSERT / UPDATE / DELETE are rejected",
+      ],
+      ui: "Monday-style three-column shell: persistent left sidebar with projects, top bar with async theme toggle, main area with right rail widgets where they fit. Dark mode as a first-class target, not an afterthought. AI suggestions render inline on the issue page with confirm or dismiss buttons, never a separate modal.",
+      flows: [
+        {
+          title: "Issue triage flow",
+          steps: [
+            "Member creates a new issue with title and description",
+            "Background job asks Claude for a priority, assignee, labels, and rationale",
+            "Turbo Stream drops the suggestion card onto the issue page without a refresh",
+            "Member reviews and confirms or dismisses; the PM state persists either way",
+          ],
+        },
+        {
+          title: "Ask your project",
+          steps: [
+            "Member opens the project's ask page",
+            "Types a natural language question",
+            "Server embeds it, runs a cosine search over this project's indexed issues and comments, asks Claude with those chunks",
+            "Response renders with inline citations linking back to the source issue, plus a source list below",
+          ],
+        },
+        {
+          title: "Cross-tenant safety",
+          steps: [
+            "Every request opens a transaction and SETs app.current_user_id and app.current_organization_id",
+            "Every tenant-scoped table has a USING + WITH CHECK RLS policy on organization_id",
+            "Rails connects as a NOSUPERUSER role so the policies actually apply even to the owner path",
+            "Integration suite simulates the app role with SET LOCAL ROLE and asserts the guarantees",
+          ],
+        },
+      ],
+      learnings: [
+        "Postgres RLS done right is the cleanest way to get bulletproof multi-tenancy in Rails, and the test suite is what makes it real",
+        "after_commit callbacks fire after the outer transaction closes, so any RLS-dependent work needs to re-establish its own GUC scope",
+        "Hotwire with Turbo Streams and Solid Cable covers real-time PM features without pulling in a JavaScript framework",
+        "Bring-your-own-key for AI keeps the app fully usable and demoable even when no provider is configured",
+        "Monday-style shell with a persistent sidebar and quiet right rail scales from tiny demo data up to a real org without redesign",
+      ],
+    },
+  },
+  {
+    slug: "n8n-agent-studio",
+    name: "n8n Agent Studio",
+    tagline: "Three production-grade n8n workflows with real Claude tool-use, one audit database.",
+    summary:
+      "Senior-tier automation portfolio built around Postgres audit, structured Claude tool use, and proper error paths. Three workflows sharing one dashboard: GitHub activity digest, content distribution drafts, and Gmail inbox ops.",
+    status: "In development",
+    year: "2026",
+    category: "Automation",
+    featured: true,
+    stack: [
+      "n8n",
+      "Claude",
+      "PostgreSQL 16",
+      "Docker Compose",
+      "Gmail API",
+      "Linear API",
+      "Slack API",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/n8n-agent-studio" },
+    ],
+    banner: "/projects/n8n-agent-studio-banner.jpg",
+    gallery: [],
+    hero: {
+      problem:
+        "The Fiverr n8n market is full of demos that use Google Sheets as a database and have no error handling. Serious clients see those and move on. What is missing is an automation portfolio that looks like production: real audit trails, structured tool use, and a single dashboard across workflows.",
+      goals: [
+        "Three workflows of increasing complexity that share one audit backend",
+        "Claude as a proper agent with tool-use, not as a single-shot prompt",
+        "Postgres-backed run log with structured error paths",
+        "Single Docker Compose stack that deploys to any VPS",
+      ],
+      solution: [
+        "Workflow 1 (simple): GitHub Activity Digest every morning across configured repos, posted to Slack",
+        "Workflow 2 (moderate): Content Distribution Agent drafts Twitter thread, LinkedIn post, and newsletter blurb from each new blog post, queued for review",
+        "Workflow 3 (advanced): Gmail Inbox Ops Agent routes incoming support mail through Claude with four bound tools (customer lookup, KB search, draft reply, file bug in Linear)",
+        "Shared workflow_runs table so a single dashboard covers all three",
+        "n8n on port 5678, Postgres on 5451 (host) with pgcrypto enabled",
+      ],
+      role: [
+        "Workflow design and audit schema",
+        "Claude tool-use wiring for the inbox agent",
+        "Docker Compose stack with port allocation that avoids conflicts with other local stacks",
+        "Dashboard over workflow_runs for unified observability",
+      ],
+      ui: "n8n's native editor for workflow design, Postgres for state. Dashboard is deliberately minimal: runs in, status, timings, errors. No dashboard frills.",
+      flows: [
+        {
+          title: "Inbox ops agent flow",
+          steps: [
+            "Incoming support email arrives in Gmail",
+            "n8n routes it through the Claude agent",
+            "Agent calls tools: customer lookup, KB search, draft reply, file bug",
+            "Draft reply lands in Gmail, bug ticket in Linear, run row in Postgres",
+            "Human reviewer approves or edits before anything leaves",
+          ],
+        },
+      ],
+      learnings: [
+        "Postgres audit beats opaque platform logs once you debug a real production flow once",
+        "Claude agents with explicit tool schemas are more reliable than prompt-chained pipelines",
+        "A single shared audit table across workflows is the single best design decision for an agent studio",
+        "Production n8n is a different craft from the tutorial-grade workflows that dominate Fiverr listings",
+      ],
+    },
+  },
+  {
+    slug: "odooforge",
+    name: "OdooForge",
+    tagline: "Open-source Odoo deployment kit with a Claude-powered support agent, portable across AWS, Azure, DigitalOcean, and local Docker.",
+    summary:
+      "One repo that stands up a production-grade Odoo 18 instance on the cloud of your choice and ships with a native AI customer support module. Postgres 16 with pgvector for retrieval, a Groq or Claude provider abstraction, tool use inside the agent, and a filterable audit log on every AI action. MIT licensed.",
+    status: "In development",
+    year: "2026",
+    category: "DevOps",
+    featured: false,
+    stack: [
+      "Odoo 18 Community",
+      "PostgreSQL 16",
+      "pgvector",
+      "OCA helpdesk_mgmt",
+      "Python",
+      "Groq",
+      "Anthropic Claude",
+      "Docker Compose",
+      "Terraform",
+      "nginx",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/odooforge" },
+    ],
+    banner: "/projects/odooforge-banner.jpg",
+    gallery: [
+      { src: "/projects/odooforge/01-odoo-local-up.png", caption: "Bare Odoo 18 stack up on Docker before any AI module is installed" },
+      { src: "/projects/odooforge/02-helpdesk-installed.png", caption: "OCA helpdesk_mgmt installed and ready for tickets" },
+      { src: "/projects/odooforge/03-odooforge-ai-installed.png", caption: "OdooForge AI addon installed from the Apps menu" },
+      { src: "/projects/odooforge/04-draft-reply-button.png", caption: "Draft AI reply button on a Helpdesk ticket" },
+      { src: "/projects/odooforge/05-agent-tool-call.png", caption: "Agent calling tools (lookup_customer, search_kb) inside the ticket flow" },
+      { src: "/projects/odooforge/06-audit-log.png", caption: "Filterable audit log of every AI action stored as an Odoo model" },
+      { src: "/projects/odooforge/07-helpdesk-dashboard.png", caption: "Helpdesk dashboard with seeded demo tickets" },
+      { src: "/projects/odooforge/08-helpdesk-tickets-list.png", caption: "Ticket list view from the operator side" },
+      { src: "/projects/odooforge/09-knowledge-base.png", caption: "Knowledge base articles indexed into pgvector for retrieval" },
+    ],
+    hero: {
+      problem:
+        "Small and mid-size businesses pick Odoo Community because the licence is free and the feature set rivals SaaS ERPs that charge per seat. The friction is everything around it. Getting it onto a cloud you actually trust, keeping backups, plugging it into modern AI without paying for a second SaaS layer, and not getting locked into one vendor. Most public Odoo repos solve one of these in isolation. None ship the whole stack with AI baked in.",
+      goals: [
+        "One CLI command stands up the same Odoo stack on AWS, Azure, DigitalOcean, or local Docker",
+        "Native Odoo addon adds AI customer support that operators can install from the Apps menu",
+        "Pluggable LLM provider so Groq, Claude, or Ollama is a settings toggle, not a code change",
+        "Audit log on every AI action, filterable inside Odoo",
+        "Zero-cost demo target via Oracle Cloud Always Free + Groq free tier",
+      ],
+      solution: [
+        "docker-compose foundation with Odoo 18 Community, Postgres 16 with pgvector, and OCA helpdesk_mgmt 18.0 ready to go",
+        "Custom Odoo addon adds a Draft AI reply button on every Helpdesk ticket",
+        "Agent retrieves top-k knowledge base articles via pgvector and calls four bound tools (lookup_customer, search_kb, check_order_status, escalate_to_human)",
+        "Provider abstraction lets the same agent run on Groq (default, free), Claude (when a key is present), or Ollama (fully self-hosted)",
+        "Every tool call and draft is written to a custom Odoo audit model with a backend filter view",
+        "Sensible SME defaults: multi-currency, multi-language (English, Urdu, Arabic), Pakistan timezone, Let's Encrypt-ready nginx config, daily pg_dump and filestore backup scripts",
+      ],
+      role: [
+        "Solo architect and engineer, requirements to deploy",
+        "docker-compose stack design and port allocation that avoids conflicts with other local stacks",
+        "Custom Odoo 18 module with manifest, models, views, and Helpdesk extension",
+        "Agent loop with Anthropic-style tool use, pgvector retrieval, and audit persistence",
+        "LLM provider adapter so Groq, Claude, and Ollama share one interface",
+      ],
+      ui: "Native Odoo backend the whole way through. The AI flow is one button on the existing ticket form, one chatter thread for the draft, and one new menu for the audit log. Operators do not learn a new app, they get a new button.",
+      flows: [
+        {
+          title: "Draft AI reply on a ticket",
+          steps: [
+            "Operator opens a Helpdesk ticket",
+            "Clicks Draft AI reply",
+            "Agent retrieves relevant knowledge base articles via pgvector",
+            "Agent calls bound tools as needed (customer lookup, KB search, order status, escalate)",
+            "Draft reply lands in the ticket chatter for the operator to review and send",
+            "Every step is written to the audit log with timestamps and tool inputs",
+          ],
+        },
+        {
+          title: "Provider swap",
+          steps: [
+            "Operator opens OdooForge AI settings inside Odoo",
+            "Picks Groq, Claude, or Ollama from a dropdown",
+            "Saves; the next ticket action uses the selected provider with no restart",
+          ],
+        },
+      ],
+      learnings: [
+        "Odoo's ORM does not natively know pgvector, so vector search has to be raw SQL inside the addon. Documenting that pattern is half the value of the repo.",
+        "A provider adapter that treats Groq, Claude, and Ollama as one interface keeps the demo fully free while still proving Claude works for paying clients",
+        "Audit logging as a first-class Odoo model (not just file logs) means operators can filter AI actions the same way they filter any other Odoo record",
+        "Phase 1 to 3 ship the AI flow on local Docker first; cloud portability is a separate phase, which keeps the build honest and the screenshots truthful",
       ],
     },
   },
