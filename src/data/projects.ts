@@ -902,8 +902,8 @@ export const projects: Project[] = [
     name: "OdooForge",
     tagline: "Open-source Odoo deployment kit with a Claude-powered support agent, portable across AWS, Azure, DigitalOcean, and local Docker.",
     summary:
-      "One repo that stands up a production-grade Odoo 18 instance on the cloud of your choice and ships with a native AI customer support module. Postgres 16 with pgvector for retrieval, a Groq or Claude provider abstraction, tool use inside the agent, and a filterable audit log on every AI action. MIT licensed.",
-    status: "In development",
+      "One repo that stands up a production-grade Odoo 18 instance on the cloud of your choice and ships with a native AI customer support module. Postgres 16 with pgvector for retrieval, a Groq or Claude provider abstraction, tool use inside the agent, and a filterable audit log on every AI action. Phases 1 to 3 (local Docker stack + AI module + audit log) shipped. Phases 4 to 6 (Terraform for AWS, Azure, DigitalOcean, and Oracle Cloud Always Free demo) pending. MIT licensed.",
+    status: "Live",
     year: "2026",
     category: "DevOps",
     featured: false,
