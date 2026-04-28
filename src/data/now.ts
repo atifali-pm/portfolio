@@ -9,21 +9,21 @@ export interface NowItem {
 }
 
 export const now = {
-  asOf: "April 2026",
+  asOf: "Late April 2026",
   items: [
     {
-      project: "Tracklane",
-      slug: "tracklane",
-      status: "Phase 1",
+      project: "Skylane",
+      slug: "skylane",
+      status: "Phase 2",
       description:
-        "Rails 8 multi-tenant project management with Claude in the core workflow. Building organizations, kanban, and AI issue triage first.",
+        "Multi-provider flight search aggregator on Laravel 12 + Vue + Reverb. Real APIs from Amadeus, Duffel, and Travelpayouts with route-aware demo fallbacks. Closing the Sabre/Travelport gap.",
     },
     {
-      project: "n8n Agent Studio",
-      slug: "n8n-agent-studio",
-      status: "Inbox Ops Agent",
+      project: "OdooForge",
+      slug: "odooforge",
+      status: "Phases 4-6",
       description:
-        "Production-grade Gmail support agent with Claude tool-use, Postgres audit, and Linear ticket creation. Workflow #3 of the studio.",
+        "Open-source Odoo deployment kit plus an AI support addon. Phases 1-3 shipped (local stack, AI scaffold, RAG support agent with audit log); phases 4-6 cover Oracle Cloud Always Free deploy, observability, and the public marketplace listing.",
     },
   ] as NowItem[],
 };
