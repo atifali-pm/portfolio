@@ -628,6 +628,81 @@ export const projects: Project[] = [
     },
   },
   {
+    slug: "skylane",
+    name: "Skylane",
+    tagline: "Multi-provider flight search aggregator with WebSocket streaming and circuit breakers.",
+    summary:
+      "Laravel 12 + Vue 3 + Reverb aggregator that fans a flight search out to three real airline data providers (Amadeus, Duffel, Travelpayouts) in parallel, normalizes their responses to a canonical schema, dedupes at the result-store boundary, and streams offers to the client over a WebSocket as each provider responds. Per-provider circuit breakers, exponential-backoff retries, and a Filament admin with live error rate, p95 latency, and recent-requests log. Phase 1 and 2 shipped with 23 Pest tests covering each adapter, normalizer, the dedupe key generator, and the circuit breaker state machine.",
+    status: "In development",
+    year: "2026",
+    category: "Travel",
+    featured: false,
+    stack: [
+      "Laravel 12",
+      "Vue 3",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "Reverb",
+      "Horizon",
+      "PostgreSQL 16",
+      "Redis",
+      "Filament 3",
+      "Pest",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/skylane" },
+    ],
+    banner: "/projects/skylane-banner.jpg",
+    gallery: [
+      { src: "/projects/skylane/01-search-form.png", caption: "Search form with origin and destination autocomplete backed by an IATA airports table." },
+      { src: "/projects/skylane/02-live-streaming-results.png", caption: "Live results streaming in over Reverb as each provider responds, deduped by carrier + flight number + segments hash." },
+      { src: "/projects/skylane/03-filament-dashboard.png", caption: "Filament admin showing per-provider request count, error rate, p95 latency, and a recent-requests log." },
+      { src: "/projects/skylane/04-filament-provider-configs.png", caption: "Per-provider configuration panel: credentials, timeouts, retry policy, and circuit breaker thresholds." },
+    ],
+    hero: {
+      problem:
+        "Real flight search aggregators talk to a mix of GDS systems, airline-direct APIs, and price-index data sources. Each one returns a different schema, has different rate limits, fails in different ways, and ships full vs partial data. Typical aggregator tutorials fan out to mock APIs that all return clean data on the same clock. That hides the entire problem.",
+      goals: [
+        "Three real providers (Amadeus GDS, Duffel NDC-style, Travelpayouts price-index) talking to live APIs",
+        "Canonical schema that gracefully handles full and partial provider data",
+        "Live result streaming so the user sees offers as each provider responds, not after the slowest one finishes",
+        "Per-provider isolation so one provider failing does not poison the others",
+      ],
+      solution: [
+        "Queue-backed parallel dispatch via Horizon-managed jobs, one job per provider per search",
+        "Per-provider adapter + normalizer pair that maps response to a canonical FlightOffer DTO",
+        "Result store at the Redis boundary with a dedupe key (carrier + flight number + date + segments hash) so duplicate offers never broadcast to the UI",
+        "Circuit breaker per provider that opens after N failures in a rolling window and recovers automatically after cooldown",
+        "Reverb WebSocket channel scoped to the search ID so the UI subscribes once and gets streamed inserts",
+      ],
+      role: [
+        "Architecture and provider abstraction design",
+        "Each adapter built as a thin Laravel Http client (Guzzle under the hood) plus normalizer",
+        "Reverb + Echo wiring for live streaming",
+        "Filament admin with custom widgets",
+        "Pest test suite covering adapters, normalizers, dedupe, and circuit breaker state machine",
+      ],
+      ui: "Vue 3 + Tailwind v4 search page subscribing to Reverb over Echo. Filament 3 admin for operator visibility into provider health.",
+      flows: [
+        {
+          title: "Live search",
+          steps: [
+            "User submits origin, destination, dates, passengers",
+            "Backend creates a search row and dispatches one Horizon job per active provider in parallel",
+            "Each job calls its provider adapter, normalizes the response, dedupes against the search's result store, and broadcasts new offers on the search's Reverb channel",
+            "Vue UI subscribes to the channel and renders offers as they arrive, partial-data offers labeled accordingly",
+            "Slow providers continue streaming until the search timeout; the user sees results from fast providers immediately",
+          ],
+        },
+      ],
+      learnings: [
+        "No PHP SDK exists for Amadeus, Duffel, or Travelpayouts; thin Http clients plus per-provider normalizers turn out to be the right shape, not a heavyweight SDK abstraction",
+        "Dedupe at the result-store boundary, not in the UI; the UI cannot un-render an offer that already broadcast",
+        "Circuit breakers are non-optional once you have three real providers; one provider going slow can cascade into queue starvation otherwise",
+      ],
+    },
+  },
+  {
     slug: "chatpdf",
     name: "ChatPDF",
     tagline: "AI document Q&A SaaS. Upload a PDF, ask questions, get grounded answers.",

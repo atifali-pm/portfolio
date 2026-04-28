@@ -171,39 +171,39 @@ export const services: Service[] = [
     projectName: "DriveBid",
   },
   {
-    slug: "smart-search-ai-reranking",
-    name: "Smart search with AI reranking",
+    slug: "hybrid-search-ai-reranking",
+    name: "Hybrid search with AI reranking",
     category: "Search",
     description:
-      "Sub-second product search at scale across millions of items with LLM-based reranking. Elasticsearch handles the recall, the AI layer handles relevance.",
+      "Sub-second search at scale with LLM-based reranking on top of Elasticsearch. Recall and relevance are split: the index does keyword and BM25, the AI layer reorders the top-K based on user intent. Holds up at multi-million-document indexes.",
   },
   {
-    slug: "scraping-proxy",
-    name: "Scraping proxy with 15+ extraction methods",
-    category: "Search",
+    slug: "resilient-scraping-pipeline",
+    name: "Resilient scraping pipeline",
+    category: "Data",
     description:
-      "Resilient retailer scraping with fallback extraction strategies, deduplication, and adaptive throttling. Handles the long tail of retailer-specific page structures.",
+      "Multi-strategy data extraction with fallback selectors, deduplication, and adaptive throttling. Built to survive long-tail variation across upstream HTML structures and to back off cleanly under rate-limit pressure.",
   },
   {
     slug: "notification-engine",
     name: "Multi-channel notification engine",
     category: "Comms",
     description:
-      "Email, SMS, and push delivery from a single fan-out service with per-channel rate limiting, retry, and delivery audit.",
+      "Email, SMS, and push delivery from a single fan-out service with per-channel rate limiting, retry, and delivery audit. One outbound contract across providers, swappable behind an interface.",
   },
   {
-    slug: "keyword-optimization",
-    name: "Keyword optimization microservice",
+    slug: "llm-content-optimization",
+    name: "LLM content optimization loops",
     category: "AI",
     description:
-      "Claude-driven keyword optimization loop that beats hand-rolled rules once the catalog scales past a few hundred thousand items.",
+      "Claude-driven optimization passes for content where hand-rolled rules stop scaling: keyword extraction, title rewriting, taxonomy assignment. Loop converges on better outputs than static rule sets at production scale.",
   },
   {
     slug: "url-validation-pipeline",
-    name: "URL validation pipeline",
+    name: "High-volume URL validation pipeline",
     category: "Quality",
     description:
-      "High-volume URL validation with 427+ tests covering retailer-specific edge cases, redirect chains, and partner affiliate parameters.",
+      "Validation pipeline with extensive coverage (400+ tests) for redirect chains, query parameter normalization, and edge cases that surface at scale. Designed to run in CI and as a runtime gate.",
   },
   {
     slug: "kong-redis-cache",
@@ -213,6 +213,78 @@ export const services: Service[] = [
       "Open-source Lua plugin for Kong that adds Redis-backed response caching with configurable TTL and shared cache across gateway nodes.",
     projectSlug: "kong-redis-plugin",
     projectName: "Kong Redis Plugin",
+  },
+  {
+    slug: "shopify-embedded-multi-tenant",
+    name: "Shopify embedded multi-tenant apps",
+    category: "Architecture",
+    description:
+      "Shopify Partner-listed embedded apps with OAuth scope tracking, HMAC-verified webhooks at the framework layer, and a Polaris-native admin so the app feels native to the Shopify shell, not bolted on.",
+    projectSlug: "storebridge",
+    projectName: "StoreBridge",
+  },
+  {
+    slug: "postgres-rls-db-role",
+    name: "Postgres RLS at the database role level",
+    category: "Architecture",
+    description:
+      "Tenant isolation enforced by Postgres itself via a non-privileged app role and RLS policies on every tenant-scoped table. Test suites prove cross-tenant reads and writes are rejected against a live Postgres, not a mock.",
+    projectSlug: "storebridge",
+    projectName: "StoreBridge",
+  },
+  {
+    slug: "gamified-lms-engine",
+    name: "Gamified LMS engine",
+    category: "LMS",
+    description:
+      "Points, badges, and leaderboards wired into core learner activity (course completion, quiz scores, streaks) with admin-configurable rules. RBAC for instructors, learners, and org admins.",
+    projectSlug: "learnloop",
+    projectName: "LearnLoop",
+  },
+  {
+    slug: "stripe-cashier-plan-limits",
+    name: "Stripe Cashier with plan limits",
+    category: "Payments",
+    description:
+      "Three-tier subscription wiring with Stripe Checkout, the customer billing portal, and plan limits enforced at the model layer (not just the UI) so a free-tier user cannot exceed quotas via the API.",
+    projectSlug: "learnloop",
+    projectName: "LearnLoop",
+  },
+  {
+    slug: "multi-cloud-odoo-deploy",
+    name: "Multi-cloud Odoo deployment kit",
+    category: "DevOps",
+    description:
+      "One repo that stands up a production-grade Odoo 18 instance on AWS, Azure, DigitalOcean, or local Docker. Terraform modules, hardened compose, demo data seeders, and a free-tier Oracle Cloud variant for a $0 demo URL.",
+    projectSlug: "odooforge",
+    projectName: "OdooForge",
+  },
+  {
+    slug: "ai-support-agent-rag",
+    name: "AI support agent with RAG and audit log",
+    category: "AI",
+    description:
+      "Native Odoo addon that adds a tool-using AI support agent inside the helpdesk module. pgvector retrieval, Claude or Groq provider abstraction, and a filterable audit log on every AI action so operators see exactly what the agent did.",
+    projectSlug: "odooforge",
+    projectName: "OdooForge",
+  },
+  {
+    slug: "multi-provider-aggregator",
+    name: "Multi-provider API aggregator with circuit breakers",
+    category: "Architecture",
+    description:
+      "Parallel dispatch to multiple upstream APIs with per-provider adapters, normalizers to a canonical schema, dedupe at the result store, and circuit breakers so one slow provider does not poison the others. Streams to the client over WebSocket so users see results as each provider responds.",
+    projectSlug: "skylane",
+    projectName: "Skylane",
+  },
+  {
+    slug: "langchain-pinecone-rag",
+    name: "LangChain + Pinecone RAG",
+    category: "AI",
+    description:
+      "Document Q&A pipeline with chunking, OpenAI embeddings into Pinecone, and a LangChain retrieval chain that returns answers with source citations. Streaming UI so the answer renders token by token.",
+    projectSlug: "chatpdf",
+    projectName: "ChatPDF",
   },
 ];
 
