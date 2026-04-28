@@ -279,10 +279,15 @@ const finalJsonLd = jsonLd ?? defaultJsonLd;
         }
         function shuffleByStatus(container) {
           const children = Array.from(container.children);
+          const pinned = [];
           const buckets = new Map();
           STATUS_ORDER.forEach((s) => buckets.set(s, []));
           buckets.set("__other__", []);
           children.forEach((child) => {
+            if (child.dataset.pinned === "true") {
+              pinned.push(child);
+              return;
+            }
             const s = child.dataset.status;
             if (s && buckets.has(s)) {
               buckets.get(s).push(child);
@@ -290,7 +295,7 @@ const finalJsonLd = jsonLd ?? defaultJsonLd;
               buckets.get("__other__").push(child);
             }
           });
-          const ordered = [];
+          const ordered = [...pinned];
           STATUS_ORDER.forEach((s) => ordered.push(...shuffleArray(buckets.get(s))));
           ordered.push(...shuffleArray(buckets.get("__other__")));
           ordered.forEach((child) => container.appendChild(child));

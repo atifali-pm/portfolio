@@ -1,7 +1,8 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
-import { projects } from "../../data/projects";
+import ProjectsRotator from "../../components/ProjectsRotator.astro";
+import { projects, featuredProjects } from "../../data/projects";
 
 const statuses = Array.from(new Set(projects.map((p) => p.status)));
 const categories = Array.from(new Set(projects.map((p) => p.category))).sort();
@@ -21,6 +22,10 @@ const categories = Array.from(new Set(projects.map((p) => p.category))).sort();
       Full case studies for every project. Problem, goals, solution,
       architecture decisions, flows, and what I learned shipping it.
     </p>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-6 pb-10">
+    <ProjectsRotator projects={featuredProjects} />
   </section>
 
   <section class="mx-auto max-w-6xl px-6 pb-20" data-projects-section>

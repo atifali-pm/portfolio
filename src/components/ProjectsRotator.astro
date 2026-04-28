@@ -1,0 +1,233 @@
+---
+import type { Project } from "../data/projects";
+
+interface Props {
+  projects: Project[];
+  intervalMs?: number;
+}
+
+const { projects, intervalMs = 6000 } = Astro.props;
+
+const statusColors: Record<Project["status"], string> = {
+  Live: "bg-emerald-500/15 text-emerald-200 border-emerald-400/30",
+  "Demo-ready": "bg-indigo-500/15 text-indigo-200 border-indigo-400/30",
+  "In development": "bg-amber-500/15 text-amber-200 border-amber-400/30",
+  "Open source": "bg-sky-500/15 text-sky-200 border-sky-400/30",
+};
+---
+
+<div
+  class="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/40 backdrop-blur-sm"
+  data-rotator
+  data-interval={intervalMs}
+  aria-roledescription="carousel"
+  aria-label="Featured projects"
+>
+  <div class="relative aspect-[16/9] md:aspect-[21/9]" data-rotator-track>
+    {
+      projects.map((p, i) => (
+        <a
+          href={`/projects/${p.slug}`}
+          data-rotator-slide
+          data-index={i}
+          class:list={[
+            "absolute inset-0 block transition-opacity duration-700 ease-out",
+            i === 0 ? "opacity-100" : "opacity-0 pointer-events-none",
+          ]}
+          aria-hidden={i === 0 ? "false" : "true"}
+          aria-roledescription="slide"
+          aria-label={`${i + 1} of ${projects.length}: ${p.name}`}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          {p.banner && (
+            <img
+              src={p.banner}
+              alt={`${p.name} banner`}
+              loading={i === 0 ? "eager" : "lazy"}
+              class="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/10" />
+          <div class="absolute inset-x-0 bottom-0 p-6 md:p-10">
+            <div class="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest text-slate-300">
+              <span
+                class:list={[
+                  "rounded-full border px-2.5 py-1 text-[11px] font-medium tracking-wider backdrop-blur-md",
+                  statusColors[p.status],
+                ]}
+              >
+                {p.status}
+              </span>
+              <span>{p.category}</span>
+              <span>·</span>
+              <span>{p.year}</span>
+            </div>
+            <h3 class="mt-3 text-2xl font-bold tracking-tight text-white md:text-4xl">
+              {p.name}
+            </h3>
+            <p class="mt-2 max-w-2xl text-sm text-slate-300 md:text-base">
+              {p.tagline}
+            </p>
+            <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-indigo-300 group-hover:text-indigo-200">
+              Read case study
+              <svg
+                class="h-4 w-4"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M5 12h14M13 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+
+  <button
+    type="button"
+    data-rotator-prev
+    aria-label="Previous project"
+    class="absolute left-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/15 bg-slate-950/60 p-2 text-white opacity-0 backdrop-blur transition-opacity hover:bg-slate-950/80 focus:opacity-100 group-hover:opacity-100 md:left-4 [[data-rotator]:hover_&]:opacity-100"
+  >
+    <svg
+      class="h-5 w-5"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M15 18l-6-6 6-6"></path>
+    </svg>
+  </button>
+
+  <button
+    type="button"
+    data-rotator-next
+    aria-label="Next project"
+    class="absolute right-3 top-1/2 z-10 -translate-y-1/2 rounded-full border border-white/15 bg-slate-950/60 p-2 text-white opacity-0 backdrop-blur transition-opacity hover:bg-slate-950/80 focus:opacity-100 md:right-4 [[data-rotator]:hover_&]:opacity-100"
+  >
+    <svg
+      class="h-5 w-5"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M9 6l6 6-6 6"></path>
+    </svg>
+  </button>
+
+  <div
+    class="pointer-events-none absolute inset-x-0 bottom-3 z-10 flex justify-center md:bottom-4"
+    data-rotator-dots
+  >
+    <div class="pointer-events-auto flex items-center gap-2 rounded-full border border-white/10 bg-slate-950/60 px-3 py-1.5 backdrop-blur">
+      {
+        projects.map((p, i) => (
+          <button
+            type="button"
+            data-rotator-dot
+            data-index={i}
+            aria-label={`Go to ${p.name}`}
+            aria-current={i === 0 ? "true" : "false"}
+            class="h-1.5 w-4 rounded-full bg-white/30 transition-all aria-[current=true]:w-8 aria-[current=true]:bg-white"
+          />
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ intervalMs }}>
+  (function () {
+    const root = document.querySelector("[data-rotator]");
+    if (!root) return;
+    const slides = Array.from(root.querySelectorAll("[data-rotator-slide]"));
+    const dots = Array.from(root.querySelectorAll("[data-rotator-dot]"));
+    const prev = root.querySelector("[data-rotator-prev]");
+    const next = root.querySelector("[data-rotator-next]");
+    if (slides.length <= 1) {
+      if (prev) prev.style.display = "none";
+      if (next) next.style.display = "none";
+      return;
+    }
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    let current = 0;
+    let timer = null;
+    function show(i) {
+      const idx = (i + slides.length) % slides.length;
+      slides.forEach((s, k) => {
+        const active = k === idx;
+        s.classList.toggle("opacity-100", active);
+        s.classList.toggle("opacity-0", !active);
+        s.classList.toggle("pointer-events-none", !active);
+        s.setAttribute("aria-hidden", active ? "false" : "true");
+        s.setAttribute("tabindex", active ? "0" : "-1");
+      });
+      dots.forEach((d, k) => {
+        d.setAttribute("aria-current", k === idx ? "true" : "false");
+      });
+      current = idx;
+    }
+    function start() {
+      if (reduceMotion) return;
+      stop();
+      timer = window.setInterval(() => show(current + 1), intervalMs);
+    }
+    function stop() {
+      if (timer !== null) {
+        window.clearInterval(timer);
+        timer = null;
+      }
+    }
+    prev && prev.addEventListener("click", (e) => {
+      e.preventDefault();
+      show(current - 1);
+      start();
+    });
+    next && next.addEventListener("click", (e) => {
+      e.preventDefault();
+      show(current + 1);
+      start();
+    });
+    dots.forEach((d) => {
+      d.addEventListener("click", (e) => {
+        e.preventDefault();
+        const idx = Number(d.getAttribute("data-index")) || 0;
+        show(idx);
+        start();
+      });
+    });
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", start);
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        show(current - 1);
+        start();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        show(current + 1);
+        start();
+      }
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else start();
+    });
+    start();
+  })();
+</script>

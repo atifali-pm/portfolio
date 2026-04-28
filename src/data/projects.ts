@@ -16,6 +16,7 @@ export interface Project {
   category: string;
   links: { label: string; url: string }[];
   featured: boolean;
+  pinned?: boolean;
   banner: string;
   gallery: GalleryImage[];
   hero: {
@@ -128,6 +129,7 @@ export const projects: Project[] = [
     year: "2025",
     category: "AI platform",
     featured: true,
+    pinned: true,
     stack: [
       "Next.js 15",
       "Fastify 5",
@@ -991,4 +993,6 @@ export const projects: Project[] = [
   },
 ];
 
-export const featuredProjects = projects.filter((p) => p.featured);
+export const featuredProjects = projects
+  .filter((p) => p.featured)
+  .sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)));
