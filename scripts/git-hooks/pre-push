@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Auto-deploy hook: when pushing `main` to `origin`, build and deploy via wrangler.
+#
+# Why this exists:
+#   atifali.pages.dev is a direct-upload-only Cloudflare Pages project. Cloudflare
+#   does not auto-deploy on git push. This hook closes the gap so a single
+#   `git push origin main` updates both GitHub and the live site.
+#
+# Behavior:
+#   - Only fires for pushes to `origin` `refs/heads/main`. Other remotes / branches pass through.
+#   - Builds the Astro site, then runs wrangler. --commit-dirty=true ships the
+#     working tree (committed + uncommitted) per feedback_no_stash_before_deploy.md.
+#   - On failure (build error, wrangler auth, network), the push is BLOCKED.
+#     Fix the underlying issue, then re-push.
+#
+# To disable for one push: `git push --no-verify origin main`
+# (Per Atif's git rules, this is generally banned. Use only when wrangler is
+# genuinely unavailable, e.g. offline, and you accept that the live site won't update.)
+
+set -e
+
+REMOTE="$1"
+
+# Only act when pushing to origin. Forks / mirrors / contra remotes pass through.
+if [ "$REMOTE" != "origin" ]; then
+  exit 0
+fi
+
+# Parse git's stdin protocol to detect if we're pushing main.
+# Format per line: <local_ref> <local_sha> <remote_ref> <remote_sha>
+ZERO_SHA="0000000000000000000000000000000000000000"
+PUSHING_MAIN=0
+while read -r local_ref local_sha remote_ref remote_sha; do
+  if [ "$remote_ref" = "refs/heads/main" ] && [ "$local_sha" != "$ZERO_SHA" ]; then
+    PUSHING_MAIN=1
+    break
+  fi
+done
+
+if [ "$PUSHING_MAIN" = "0" ]; then
+  exit 0
+fi
+
+# Resolve PATH for non-interactive shells. Per reference_node_path_gotcha.md,
+# /usr/bin/node is v12 and shadows mise's node 22. Prepend both nvm and mise.
+export PATH="$HOME/.nvm/versions/node/v22.22.2/bin:$HOME/.local/share/mise/installs/node/22/bin:$PATH"
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+cd "$REPO_ROOT"
+
+echo "[pre-push] Pushing main to origin; will build + deploy to atifali.pages.dev"
+echo "[pre-push] (1/2) Building Astro site..."
+npm run build
+
+echo "[pre-push] (2/2) Deploying via wrangler..."
+wrangler pages deploy dist \
+  --project-name=atifali \
+  --branch=main \
+  --commit-dirty=true
+
+echo "[pre-push] Deploy complete; allowing push to origin/main."
