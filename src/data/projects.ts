@@ -151,7 +151,13 @@ export const projects: Project[] = [
       { label: "GitHub", url: "https://github.com/atifali-pm/axon" },
     ],
     banner: "/projects/axon-banner.jpg",
-    gallery: [],
+    gallery: [
+      { src: "/projects/axon/05-landing.jpg", caption: "Axon landing page positioning the agentic SaaS for buyers." },
+      { src: "/projects/axon/01-dashboard.jpg", caption: "Tenant dashboard with usage, agents, jobs, and observability summary." },
+      { src: "/projects/axon/02-streaming-chat.jpg", caption: "Streaming agentic chat with tool calls and citation rendering." },
+      { src: "/projects/axon/03-agents-marketplace.jpg", caption: "Agents marketplace where tenants pick or compose role-specific agents." },
+      { src: "/projects/axon/04-queue-jobs.jpg", caption: "BullMQ queue dashboard with retry, dead-letter, and per-tenant job filters." },
+    ],
     hero: {
       problem:
         "AI agents in production need audit trails, cost control, and tenant isolation that tutorials skip. Most open-source agent frameworks assume a single user and a single wallet. Real multi-tenant AI platforms have to account for per-tenant spend caps, per-tenant data isolation, and full observability on tokens, latency, and errors.",
@@ -387,7 +393,7 @@ export const projects: Project[] = [
     tagline: "Multi-tenant gamified LMS with RBAC, webhooks, and analytics.",
     summary:
       "Small-org LMS without the Moodle complexity. Next.js 15 SaaS with Prisma, Postgres, Stripe billing, and an Android APK build for mobile learners.",
-    status: "In development",
+    status: "Live",
     year: "2024",
     category: "LMS",
     featured: true,
@@ -401,6 +407,7 @@ export const projects: Project[] = [
       "Vercel",
     ],
     links: [
+      { label: "Live app", url: "https://learnloop-ruby.vercel.app/" },
       { label: "GitHub", url: "https://github.com/atifali-pm/learnloop" },
     ],
     banner: "/projects/learnloop-banner.jpg",
@@ -990,7 +997,7 @@ export const projects: Project[] = [
     tagline: "Open-source Odoo deployment kit with a Claude-powered support agent, portable across AWS, Azure, DigitalOcean, and local Docker.",
     summary:
       "One repo that stands up a production-grade Odoo 18 instance on the cloud of your choice and ships with a native AI customer support module. Postgres 16 with pgvector for retrieval, a Groq or Claude provider abstraction, tool use inside the agent, and a filterable audit log on every AI action. Phases 1 to 3 (local Docker stack + AI module + audit log) shipped. Phases 4 to 6 (Terraform for AWS, Azure, DigitalOcean, and Oracle Cloud Always Free demo) pending. MIT licensed.",
-    status: "Live",
+    status: "Open source",
     year: "2026",
     category: "DevOps",
     featured: false,
