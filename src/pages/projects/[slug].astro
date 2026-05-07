@@ -241,23 +241,125 @@ const caseStudyJsonLd = {
           <h2 class="text-2xl font-bold tracking-tight text-white md:text-3xl">
             Screenshots
           </h2>
-          <div class="mt-6 grid gap-5 sm:grid-cols-2">
-            {project.gallery.map((shot) => (
-              <figure class="overflow-hidden rounded-2xl border border-white/10 bg-slate-900/40">
-                <div class="aspect-[16/10] overflow-hidden bg-slate-950">
-                  <img
-                    src={shot.src}
-                    alt={shot.caption}
-                    loading="lazy"
-                    class="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.02]"
-                  />
-                </div>
+          <p class="mt-2 text-sm text-slate-400">Click any image to open at full size.</p>
+          <div class="mt-6 grid gap-5 sm:grid-cols-2" id="gallery-grid">
+            {project.gallery.map((shot, i) => (
+              <figure class="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/40">
+                <button
+                  type="button"
+                  class="block w-full cursor-zoom-in"
+                  data-lightbox-trigger
+                  data-lightbox-src={shot.src}
+                  data-lightbox-caption={shot.caption}
+                  data-lightbox-index={i}
+                >
+                  <div class="aspect-[16/9] overflow-hidden bg-slate-950 flex items-center justify-center">
+                    <img
+                      src={shot.src}
+                      alt={shot.caption}
+                      loading="lazy"
+                      class="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                    />
+                  </div>
+                </button>
                 <figcaption class="border-t border-white/5 px-4 py-3 text-sm text-slate-400">
                   {shot.caption}
                 </figcaption>
               </figure>
             ))}
           </div>
+
+          <dialog
+            id="gallery-lightbox"
+            class="m-0 w-screen h-screen max-w-none max-h-none bg-slate-950/95 p-0 text-white backdrop:bg-slate-950/80"
+          >
+            <div class="flex h-screen w-screen flex-col">
+              <div class="flex items-center justify-between px-6 py-4 border-b border-white/10">
+                <span id="lightbox-counter" class="text-sm text-slate-400" />
+                <button
+                  type="button"
+                  id="lightbox-close"
+                  aria-label="Close"
+                  class="rounded-md border border-white/20 bg-white/5 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/10"
+                >
+                  Close (Esc)
+                </button>
+              </div>
+              <div class="relative flex-1 overflow-hidden flex items-center justify-center px-2 sm:px-12">
+                <button
+                  type="button"
+                  id="lightbox-prev"
+                  aria-label="Previous"
+                  class="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full border border-white/20 bg-slate-900/80 p-3 text-white hover:bg-slate-900 sm:left-6"
+                >
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 6l-6 6 6 6" />
+                  </svg>
+                </button>
+                <img
+                  id="lightbox-image"
+                  src=""
+                  alt=""
+                  class="max-h-full max-w-full object-contain"
+                />
+                <button
+                  type="button"
+                  id="lightbox-next"
+                  aria-label="Next"
+                  class="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full border border-white/20 bg-slate-900/80 p-3 text-white hover:bg-slate-900 sm:right-6"
+                >
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 6l6 6-6 6" />
+                  </svg>
+                </button>
+              </div>
+              <p id="lightbox-caption" class="px-6 py-4 text-center text-sm text-slate-300 border-t border-white/10" />
+            </div>
+          </dialog>
+
+          <script is:inline define:vars={{ gallery: project.gallery }}>
+            (() => {
+              const dialog = document.getElementById("gallery-lightbox");
+              if (!dialog) return;
+              const img = document.getElementById("lightbox-image");
+              const caption = document.getElementById("lightbox-caption");
+              const counter = document.getElementById("lightbox-counter");
+              const closeBtn = document.getElementById("lightbox-close");
+              const prevBtn = document.getElementById("lightbox-prev");
+              const nextBtn = document.getElementById("lightbox-next");
+              let current = 0;
+
+              function show(i) {
+                current = (i + gallery.length) % gallery.length;
+                const shot = gallery[current];
+                img.src = shot.src;
+                img.alt = shot.caption;
+                caption.textContent = shot.caption;
+                counter.textContent = (current + 1) + " / " + gallery.length;
+              }
+
+              document.querySelectorAll("[data-lightbox-trigger]").forEach((el) => {
+                el.addEventListener("click", () => {
+                  show(parseInt(el.dataset.lightboxIndex, 10));
+                  dialog.showModal();
+                });
+              });
+
+              closeBtn.addEventListener("click", () => dialog.close());
+              prevBtn.addEventListener("click", () => show(current - 1));
+              nextBtn.addEventListener("click", () => show(current + 1));
+
+              dialog.addEventListener("click", (e) => {
+                if (e.target === dialog) dialog.close();
+              });
+
+              document.addEventListener("keydown", (e) => {
+                if (!dialog.open) return;
+                if (e.key === "ArrowLeft") show(current - 1);
+                else if (e.key === "ArrowRight") show(current + 1);
+              });
+            })();
+          </script>
         </section>
       )
     }
