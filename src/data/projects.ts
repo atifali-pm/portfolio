@@ -588,11 +588,9 @@ export const projects: Project[] = [
     ],
     banner: "/projects/storebridge-banner.jpg",
     gallery: [
+      { src: "/projects/storebridge/00-architecture.png", caption: "End-to-end architecture: OAuth install path provisions a tenant row, runtime webhooks are HMAC-verified, queued through Redis/BullMQ, and writes happen under Postgres RLS." },
       { src: "/projects/storebridge/01-shopify-install-consent.png", caption: "Shopify OAuth scope-grant consent during merchant install." },
-      { src: "/projects/storebridge/02-embedded-admin-empty.png", caption: "Embedded Polaris-native admin shell after install, before any synced data." },
       { src: "/projects/storebridge/03-merchant-merge-flow.png", caption: "Multi-store merge token flow that attaches a second shop to the same tenant." },
-      { src: "/projects/storebridge/04-store-pairing-active.png", caption: "Active store pairing view showing both shops bound to one StoreBridge tenant." },
-      { src: "/projects/storebridge/00-partner-app-config.png", caption: "Shopify Partner dashboard config for the live app (OAuth, redirects, scopes)." },
     ],
     hero: {
       problem:
@@ -955,7 +953,10 @@ export const projects: Project[] = [
       { label: "GitHub", url: "https://github.com/atifali-pm/n8n-agent-studio" },
     ],
     banner: "/projects/n8n-agent-studio-banner.jpg",
-    gallery: [],
+    gallery: [
+      { src: "/projects/n8n-agent-studio/01-github-digest.png", caption: "Workflow 1: GitHub activity digest. Schedule + manual webhook triggers, Postgres audit logging, Gemini summarization, conditional Slack delivery." },
+      { src: "/projects/n8n-agent-studio/02-content-distribution.png", caption: "Workflow 2: blog post repurpose. Webhook intake, Gemini variant generation across channels, Postgres audit on every run." },
+    ],
     hero: {
       problem:
         "The Fiverr n8n market is full of demos that use Google Sheets as a database and have no error handling. Serious clients see those and move on. What is missing is an automation portfolio that looks like production: real audit trails, structured tool use, and a single dashboard across workflows.",
