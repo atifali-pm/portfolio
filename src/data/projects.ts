@@ -780,9 +780,13 @@ export const projects: Project[] = [
     category: "Infrastructure",
     featured: false,
     stack: ["Lua", "Redis", "Kong Plugin Framework"],
-    links: [],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/kong-proxy-cache-redis-plugin" },
+    ],
     banner: "/projects/kong-redis-plugin-banner.jpg",
-    gallery: [],
+    gallery: [
+      { src: "/projects/kong-redis-plugin/01-architecture.png", caption: "Request lifecycle: client to Kong, plugin checks Redis, hit returns cached, miss forwards upstream and caches the response." },
+    ],
     hero: {
       problem:
         "Kong's built-in proxy-cache plugin is memory-only. Distributed deployments need a shared cache across gateway nodes, which means Redis.",
