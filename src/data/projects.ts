@@ -726,10 +726,14 @@ export const projects: Project[] = [
       "Pinecone",
       "AWS S3",
       "Clerk",
+      "Neon Postgres",
+      "Drizzle ORM",
     ],
     links: [],
     banner: "/projects/chatpdf-banner.jpg",
-    gallery: [],
+    gallery: [
+      { src: "/projects/chatpdf/01-architecture.png", caption: "End-to-end flow: PDF upload, S3 storage, Pinecone embedding index, OpenAI augmented retrieval, streaming citation-grade answers, history in Neon Postgres." },
+    ],
     hero: {
       problem:
         "Users want to ask questions against a PDF and get answers grounded in the source, not hallucinated summaries. Generic chat UIs over PDFs often skip the retrieval step or do it badly.",
