@@ -1262,6 +1262,162 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    slug: "meridian",
+    name: "Meridian",
+    tagline: "Production-grade multi-agent research and execution pipeline with hybrid RAG, conflict resolution, and an LLM-as-judge rubric.",
+    summary:
+      "Hand Meridian an ambiguous business goal and it returns a structured answer with provenance. A LangGraph orchestrator plans a dependency-aware task DAG, delegates to specialist sub-agents (hybrid retrieval, web/API, synthesis), retries and replans on failure, resolves source conflicts, and scores every run with an LLM judge. Self-hosted Langfuse captures the full trace.",
+    status: "Live",
+    year: "2026",
+    category: "AI platform",
+    featured: false,
+    stack: [
+      "Python",
+      "FastAPI",
+      "LangGraph",
+      "PostgreSQL",
+      "pgvector",
+      "tsvector",
+      "Redis",
+      "Langfuse",
+      "Anthropic Claude",
+      "Docker Compose",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/meridian" },
+    ],
+    banner: "/projects/meridian-banner.jpg",
+    gallery: [
+      { src: "/projects/meridian/01-run-report.png", caption: "Run report with the task DAG, KPI cards for duration, tokens, cost, and judge score, plus a synthesis excerpt." },
+      { src: "/projects/meridian/02-langfuse-trace.png", caption: "Langfuse-style trace timeline with nested agent spans (orchestrator, planner, executor, retrieval, web, synthesis, judge) and five score cards at the bottom." },
+      { src: "/projects/meridian/03-judge-rubric.png", caption: "Judge rubric panel scoring goal completion, accuracy, coverage, confidence, and hallucination risk with a PASS verdict." },
+    ],
+    hero: {
+      problem:
+        "Most multi-agent demos collapse the moment an API breaks, a goal is ambiguous, or two sources contradict. They lack typed contracts between agents, retries at the tool layer, conflict resolution as a first-class step, and observability wired in from day one. Without those, you cannot defend an agent's answer to a real stakeholder.",
+      goals: [
+        "Accept a high-level business goal and return a structured, cited answer",
+        "Plan a dependency-aware task DAG with per-task acceptance criteria",
+        "Delegate to specialist sub-agents with typed input and output contracts",
+        "Resolve conflicts between sources instead of averaging them away",
+        "Score every run against a rubric so quality is measurable, not vibes",
+      ],
+      solution: [
+        "LangGraph orchestrator with planner, executor, and replanner nodes that walk the task DAG",
+        "Retrieval agent combining pgvector and tsvector via Reciprocal Rank Fusion",
+        "Web/API agent built on Tavily plus a generic HTTP tool, with retry and circuit breaking",
+        "Synthesis agent that aggregates, detects conflicts, and reconciles by weight and confidence",
+        "Redis session store for per-run state, Postgres for run logs and evaluation history",
+        "Self-hosted Langfuse trace for every agent call, token, and tool invocation",
+        "LLM-as-judge rubric scoring goal completion, accuracy, coverage, confidence, and hallucination risk",
+      ],
+      role: [
+        "Solo architect and engineer, system design to deploy",
+        "Four-layer architecture (orchestrator, agents, memory, observability) and the LangGraph wiring",
+        "Hybrid RAG pipeline with pgvector + tsvector RRF and per-agent context budgeting",
+        "Langfuse self-hosted stack, LLM-judge rubric, and run report generator",
+        "Docker Compose stack for Postgres, Redis, and Langfuse",
+      ],
+      ui: "Operator-first run report and trace viewer, not an end-user surface. The product is the structured answer plus the trace and rubric backing it.",
+      flows: [
+        {
+          title: "Goal-to-answer flow",
+          steps: [
+            "Operator submits a business goal to the FastAPI endpoint",
+            "Planner decomposes the goal into a task DAG with declared dependencies and acceptance criteria",
+            "Executor walks the DAG, dispatching tasks to retrieval, web/API, and synthesis agents",
+            "Replanner re-enters the loop with failure context when a specialist returns low confidence or errors",
+            "Synthesis agent reconciles conflicting sources and emits a cited answer",
+            "LLM judge scores the run, full trace and rubric persist to Langfuse and Postgres",
+          ],
+        },
+      ],
+      learnings: [
+        "Typed Pydantic contracts between agents catch a class of integration bugs before they reach the executor",
+        "Conflict resolution as a first-class step beats hoping the synthesizer averages contradictions correctly",
+        "An LLM judge rubric turns agent quality from a vibe into a number you can regress against",
+        "Observability wired in from layer one is the difference between a demo and an answer you can defend",
+      ],
+    },
+  },
+  {
+    slug: "portfolio-bot",
+    name: "Portfolio Bot",
+    tagline: "Embeddable RAG chatbot grounded on atifali.pages.dev, with inline citations, streaming responses, and prompt-injection protection.",
+    summary:
+      "A chat widget that mounts to every page on the portfolio site. Visitors ask questions about projects and services and get answers grounded in the actual case studies, with citation pills linking back to the source. Built on Cloudflare Workers AI and Vectorize, no framework runtime on the host page, conversation memory in localStorage.",
+    status: "Live",
+    year: "2026",
+    category: "AI SaaS",
+    featured: false,
+    stack: [
+      "TypeScript",
+      "Cloudflare Workers",
+      "Cloudflare Workers AI",
+      "Cloudflare Vectorize",
+      "Astro",
+      "Vanilla JS",
+      "Markdown ingestion",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/portfolio-bot" },
+      { label: "Live", url: "https://atifali.pages.dev" },
+    ],
+    banner: "/projects/portfolio-bot-banner.jpg",
+    gallery: [
+      { src: "/projects/portfolio-bot/01-widget-closed.png", caption: "Portfolio homepage with the chat bubble and Ask about my projects tooltip pinned to the bottom-right." },
+      { src: "/projects/portfolio-bot/02-widget-open.png", caption: "Chat widget expanded with the empty state and four suggested starter questions." },
+      { src: "/projects/portfolio-bot/03-answer-with-citations.png", caption: "Q&A view: What is Axon? returns a grounded answer with three citation pills linking to the Axon case study and services page." },
+      { src: "/projects/portfolio-bot/04-streaming.png", caption: "Streaming response mid-flight with the blinking cursor and a green streaming indicator." },
+    ],
+    hero: {
+      problem:
+        "Most low-cost chatbot offerings are bare LLM wrappers with no retrieval, no citations, no abuse protection, and no embed story. A buyer searching for a chatbot for their own website wants to see a chatbot embedded in a real website, talking about that website's actual content, and they want to verify it themselves before paying.",
+      goals: [
+        "Ship a chatbot embedded on atifali.pages.dev that talks about the portfolio itself",
+        "Ground every answer in the project READMEs and case studies behind the site",
+        "Surface inline citations that link back to the source case study",
+        "Keep the embed footprint small: no framework runtime on the host page",
+        "Add abuse protection (rate limiting, prompt-injection guard) before any production embed",
+      ],
+      solution: [
+        "Cloudflare Worker exposes ingestion, query, and chat endpoints",
+        "Markdown ingestion pipeline chunks and embeds the case studies, upserts into Vectorize",
+        "Retrieval pulls top matches from Vectorize, generation runs on Workers AI with Claude as an option",
+        "Vanilla JS widget mounts via a single script tag from Layout.astro, no React or framework runtime on the host",
+        "Streaming responses for fast first-token feedback, conversation history persists in localStorage",
+        "Inline citation pills attach to each answer, linking back to the relevant /projects/ page",
+        "Per-IP rate limiting and a prompt-injection guard sit in front of the generation endpoint",
+      ],
+      role: [
+        "Solo architect and engineer, ingestion pipeline to embed",
+        "Cloudflare Worker design, Vectorize binding, and ingestion pipeline",
+        "Vanilla JS chat widget with streaming and citation rendering",
+        "Layout.astro embed wiring on atifali.pages.dev",
+        "Rate limiting and prompt-injection guard layer",
+      ],
+      ui: "Floating chat bubble pinned bottom-right on every page. Expands to a focused chat surface with suggested starters. Citation pills are clickable and link straight to the source case study.",
+      flows: [
+        {
+          title: "Visitor ask flow",
+          steps: [
+            "Visitor opens the chat bubble on any page of atifali.pages.dev",
+            "Question goes to the Worker query endpoint, which retrieves the top chunks from Vectorize",
+            "Worker streams a grounded answer back over Server-Sent Events",
+            "Citation pills render alongside the answer, linking to the /projects/ pages that supplied the context",
+            "Conversation history persists in localStorage so the visitor picks up where they left off on the next page",
+          ],
+        },
+      ],
+      learnings: [
+        "Grounding a chatbot in the host site's own content is a faster trust signal than any landing-page copy",
+        "Citation pills that link back to the source case study turn skeptical visitors into clickers on the rest of the portfolio",
+        "Cloudflare Workers AI + Vectorize on the free tier is a viable production path for a small embed when latency and cost both matter",
+        "Vanilla JS for the widget keeps the embed compatible with any host framework and avoids dragging a runtime into someone else's page",
+      ],
+    },
+  },
 ];
 
 export const featuredProjects = projects
