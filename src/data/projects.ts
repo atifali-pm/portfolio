@@ -1092,6 +1092,176 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    slug: "cue",
+    name: "Cue",
+    tagline: "Production-grade WhatsApp Business AI agent with RAG, structured tool use, and a full audit trail.",
+    summary:
+      "WhatsApp Business agent that takes the cue from an incoming message, drafts a grounded reply against a semantic knowledge base, sends it via the Meta Cloud API, and persists every model run, tool call, and escalation to Postgres. Pluggable LLM provider, explicit escalation rules, and an admin dashboard that answers what the bot said to which customer at 3am.",
+    status: "Live",
+    year: "2026",
+    category: "AI SaaS",
+    featured: false,
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "PostgreSQL",
+      "pgvector",
+      "Meta Cloud API",
+      "Anthropic Claude",
+      "Groq",
+      "Vercel",
+      "Slack API",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/cue" },
+    ],
+    banner: "/projects/cue-banner.jpg",
+    gallery: [
+      { src: "/projects/cue/01-webhook-dashboard.png", caption: "Conversation list in the admin dashboard with status, last message preview, and escalation flags." },
+      { src: "/projects/cue/02-conversation-detail.png", caption: "Conversation timeline showing inbound and outbound messages alongside AI run metadata and tool calls." },
+    ],
+    hero: {
+      problem:
+        "Most WhatsApp bot tools stop at hard-coded keyword flows or shallow GPT wrappers with no audit. Regulated workflows (support, billing, customer onboarding) cannot ship without an answer to what the bot said to a customer at 3am, with token counts, latency, tool calls, and errors logged per run. Existing tools do not provide that level of observability.",
+      goals: [
+        "Receive and send on the Meta Cloud API webhook end to end",
+        "Ground every reply in a real knowledge base via pgvector retrieval",
+        "Treat every AI reply as a first-class run with full telemetry persisted",
+        "Make escalation rules explicit, not buried inside prompt soup",
+        "Keep the model provider pluggable so Groq, Claude, or BYO key all work",
+      ],
+      solution: [
+        "Webhook endpoint on Vercel receives WhatsApp messages and persists them with conversation context",
+        "Structured tool loop with four bound tools (lookup customer, search KB, draft reply, escalate to human)",
+        "pgvector-backed semantic knowledge base feeding the search_kb tool",
+        "Outgoing messages flagged ai_drafted and ai_sent so human-vs-AI authorship stays traceable",
+        "Slack notification fires on escalate_to_human with conversation deep link",
+        "Admin dashboard surfaces conversations, escalations, and AI run details including tokens and latency",
+      ],
+      role: [
+        "Solo architect and engineer, requirements to deploy",
+        "Meta Cloud API webhook integration on Vercel",
+        "Agent loop design with structured tool use against Groq and Claude",
+        "pgvector schema, embedding pipeline, and KB search tool",
+        "Admin dashboard for conversations, escalations, and run inspection",
+      ],
+      ui: "Operator-first admin built for monitoring conversations and AI runs, not for end users. End users only see WhatsApp on their phone, which is the point.",
+      flows: [
+        {
+          title: "Inbound message flow",
+          steps: [
+            "Customer sends a WhatsApp message to the business number",
+            "Meta Cloud API webhook hits the Cue endpoint, message persists with conversation context",
+            "Agent loop runs: lookup customer, search KB, draft reply, decide on escalation",
+            "Reply sends back over the Meta Cloud API, flagged ai_sent",
+            "Every model run, tool call, and token count writes to the Postgres audit trail",
+          ],
+        },
+        {
+          title: "Escalation flow",
+          steps: [
+            "Agent calls escalate_to_human based on explicit rules",
+            "Slack channel receives a notification with conversation deep link",
+            "Operator picks up the conversation from the admin dashboard",
+            "Subsequent operator replies persist alongside the AI run history",
+          ],
+        },
+      ],
+      learnings: [
+        "Treating every AI reply as a logged run with tokens, latency, and tool calls is the difference between a demo bot and a regulated-workflow bot",
+        "Explicit escalation rules in code beat trying to coax escalation behavior out of a prompt",
+        "A pluggable provider interface (Groq default, Claude via BYO key) lets the demo stay free while paying clients still get Claude",
+        "Persisting AI run metadata at the message level (not at the conversation level) keeps the audit trail useful when an agent loop spans multiple tool calls",
+      ],
+    },
+  },
+  {
+    slug: "mcp-toolkit",
+    name: "MCP Toolkit",
+    tagline: "Three production-grade Model Context Protocol servers (GitHub, Linear, Gmail) with auth, audit logging, and rate-limit handling.",
+    summary:
+      "Public TypeScript monorepo with three MCP servers buyers can drop into Claude Desktop or Cursor. Tokens scoped per tool, no shared secrets, errors that surface rate-limit details, and a SQLite audit log of every tool call. Backs the Custom MCP Server gig on Fiverr and Upwork.",
+    status: "Live",
+    year: "2026",
+    category: "AI platform",
+    featured: false,
+    stack: [
+      "TypeScript",
+      "Node.js",
+      "Model Context Protocol",
+      "pnpm workspace",
+      "SQLite",
+      "PostgreSQL",
+      "GitHub API",
+      "Linear API",
+      "Gmail API",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/mcp-toolkit" },
+    ],
+    banner: "/projects/mcp-toolkit-banner.jpg",
+    gallery: [
+      { src: "/projects/mcp-toolkit/00-hero.png", caption: "Hero composite: GitHub MCP, Linear MCP, and the atif-mcp-replay audit log shown together." },
+      { src: "/projects/mcp-toolkit/01-github-mcp-inspector.png", caption: "GitHub MCP server inspected via @modelcontextprotocol/inspector, repo.search round-trip with rate-limit info and audit log row." },
+      { src: "/projects/mcp-toolkit/02-linear-mcp-inspector.png", caption: "Linear MCP server inspected via @modelcontextprotocol/inspector, team.query round-trip showing the auth-error contract." },
+      { src: "/projects/mcp-toolkit/04-audit-log.png", caption: "atif-mcp-replay CLI printing recent tool calls from the SQLite audit log, success and error rows colored differently." },
+    ],
+    hero: {
+      problem:
+        "MCP turns Claude and Cursor into agents that touch real systems, but the reference servers from Anthropic stop short of production. Public examples are toy demos. Buyers who want to hand an MCP server to a teammate need auth that is not a shared secret, errors that surface rate-limit detail, tightly scoped tool definitions, and an audit log they can replay after the fact.",
+      goals: [
+        "Ship three MCP servers buyers can run today: GitHub, Linear, Gmail",
+        "Make every tool call audit-logged so giving the agent write access stays defensible",
+        "Scope tokens per tool, no shared secrets across servers",
+        "Surface rate-limit and auth errors as structured responses, not silent failures",
+        "Keep the install path simple: clone or npx, drop env tokens, register in the client config",
+      ],
+      solution: [
+        "GitHub MCP server with issue CRUD, PR review, and repo search; authenticates via personal access token",
+        "Linear MCP server with issue CRUD plus project and team queries; authenticates via Linear API key",
+        "Gmail MCP server for read, send, and label flows with documented Google Cloud OAuth setup",
+        "Shared packages/core with auth helpers, SQLite audit log (Postgres optional), and structured logging",
+        "atif-mcp-replay CLI that prints the most recent tool calls from the audit log for after-the-fact review",
+        "Zero-hosting deploy model: servers run inside the AI client process over stdio",
+      ],
+      role: [
+        "Solo architect and engineer, monorepo scaffold to release",
+        "pnpm workspace design with a shared core package",
+        "MCP server implementation for GitHub, Linear, and Gmail",
+        "Audit logging layer with SQLite default and Postgres opt-in",
+        "Replay CLI and inspector-driven testing workflow",
+      ],
+      ui: "Config-driven, no UI. The replay CLI and the @modelcontextprotocol/inspector are the operator surfaces. Every tool call writes a structured audit row buyers can grep, replay, or join against their own tables.",
+      flows: [
+        {
+          title: "Install flow",
+          steps: [
+            "Buyer clones the repo or runs the published npx package",
+            "Adds the server entry to claude_desktop_config.json or their Cursor MCP config",
+            "Drops API tokens into env, no hosting required",
+            "Server runs inside the AI client process over stdio on next launch",
+          ],
+        },
+        {
+          title: "Tool call audit flow",
+          steps: [
+            "AI client invokes a tool on one of the MCP servers",
+            "Auth helper validates the per-tool token",
+            "Tool call executes against the upstream API (GitHub, Linear, Gmail)",
+            "Response, timing, and arguments persist to the SQLite audit log",
+            "Operator inspects recent calls via atif-mcp-replay or queries the audit table directly",
+          ],
+        },
+      ],
+      learnings: [
+        "Scoping tokens per tool, not per server, removes a class of blast-radius problems before they happen",
+        "Surfacing rate-limit detail as a structured error response is more useful than retrying silently",
+        "A shared core package with auth, audit, and logging removes per-server boilerplate and keeps behavior consistent across GitHub, Linear, and Gmail",
+        "The audit log is the actual product once an AI client has write access; without it, MCP is hard to defend in a regulated workflow",
+      ],
+    },
+  },
 ];
 
 export const featuredProjects = projects
