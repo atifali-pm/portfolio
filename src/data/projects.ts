@@ -1624,6 +1624,98 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    slug: "slate",
+    name: "Slate",
+    tagline: "Multi-tenant appointment booking admin SaaS for any chair, seat, or slot business.",
+    summary:
+      "Slate is the admin surface for an appointment-booking SaaS. Operators log in, see today's bookings, filter by date or staff or status, edit inline, and never double-book a chair. The same instance hosts many independent businesses with row-level isolation. Salons, barbers, clinics, tutors, and consultancies all run off the same product by swapping the seed file.",
+    status: "Live",
+    year: "2026",
+    category: "SaaS / Booking & Scheduling",
+    featured: false,
+    stack: [
+      "Next.js 14",
+      "TypeScript",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "NextAuth",
+      "Tailwind",
+      "Recharts",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/slate" },
+    ],
+    banner: "/projects/slate-banner.jpg",
+    gallery: [
+      { src: "/projects/slate/01-home.png", caption: "Landing page" },
+      { src: "/projects/slate/02-sign-in.png", caption: "Sign-in screen via NextAuth" },
+      { src: "/projects/slate/03-dashboard.png", caption: "Bookings list with filters, pagination, and inline status actions" },
+      { src: "/projects/slate/04-org-switcher.png", caption: "Organization switcher for multi-tenant access" },
+      { src: "/projects/slate/05-dashboard-pinecrest.png", caption: "Same dashboard switched to Pinecrest Clinic tenant" },
+      { src: "/projects/slate/06-bookings-mobile.png", caption: "Mobile-responsive bookings view at 390px wide" },
+      { src: "/projects/slate/07-edit-dialog.png", caption: "Edit booking dialog with reschedule, notes, and delete" },
+      { src: "/projects/slate/08-calendar-week.png", caption: "Calendar week view with status-colored blocks" },
+      { src: "/projects/slate/09-calendar-day.png", caption: "Calendar day view with staff columns and drag-to-reschedule" },
+      { src: "/projects/slate/10-analytics-home.png", caption: "Analytics home: KPIs, top services, staff utilization" },
+    ],
+    hero: {
+      problem:
+        "Most appointment-booking tools are either rigid vertical apps (salons only, clinics only) or sprawling calendar suites that nobody on a small operations team enjoys driving. The operator's daily reality is mundane: see today, filter, edit, confirm, cancel, and stay out of double-booked situations. Slate focuses on that admin loop first and treats the customer-facing booking page as a downstream concern.",
+      goals: [
+        "Host many independent businesses on one instance with strict per-tenant isolation",
+        "Give the operator a bookings list with server-side filters and inline status actions",
+        "Render a calendar week and day view with drag to reschedule",
+        "Block double-booking the same staff at the same time at the data layer",
+        "Surface analytics that an owner can read in under ten seconds",
+      ],
+      solution: [
+        "Next.js 14 app router with Drizzle ORM and Postgres, row-level isolation keyed by organization id",
+        "NextAuth session with org membership encoded so every query scopes to the active tenant",
+        "Bookings CRUD with server-side filters by date, status, staff, and customer search, plus optimistic inline edit",
+        "Calendar week and day views (staff columns) with drag-to-reschedule writing through to the same conflict rules",
+        "Conflict detection at the service layer so the API rejects overlaps regardless of which client created them",
+        "Analytics cards built on Recharts: daily count, 7-day outlook, top services, no-show rate, staff utilization",
+        "Mobile-responsive layout where the bookings table collapses to a card list under 640px",
+      ],
+      role: [
+        "Solo architect and engineer, requirements to deploy",
+        "Multi-tenant data model and the org-scoping pattern across every query",
+        "Bookings CRUD, per-staff availability rules, and the conflict-detection service",
+        "Calendar week and day views with the drag-to-reschedule write path",
+        "Analytics card pipeline and the mobile-responsive collapse pattern",
+      ],
+      ui: "An operator-first admin surface in calm Tailwind with a single bookings list as the load-bearing screen, a calendar that earns its space, and analytics cards that read fast.",
+      flows: [
+        {
+          title: "Operator runs the day",
+          steps: [
+            "Operator signs in via NextAuth and lands on the analytics home",
+            "Clicks Bookings to see today's list, filtered by date and staff",
+            "Inline-confirms walk-ins, cancels a no-show, and edits a booking via the dialog",
+            "Switches to calendar week view to spot gaps and drags a booking to reschedule it",
+            "Conflict detection rejects an overlap before the write lands",
+          ],
+        },
+        {
+          title: "Multi-tenant switch",
+          steps: [
+            "Owner with access to multiple organizations opens the org switcher in the header",
+            "Picks a different tenant (e.g. Bella's Salon to Pinecrest Clinic)",
+            "The active session re-scopes; every list, calendar, and analytics card reloads against the new tenant",
+            "No data crosses tenants because every query is keyed on organization id",
+          ],
+        },
+      ],
+      learnings: [
+        "Row-level tenant isolation enforced in the data layer (not just the UI) is the difference between a real multi-tenant SaaS and a single-tenant app with a dropdown",
+        "Conflict detection belongs in the service layer, not the UI, so the calendar drag handler and the bookings form both go through the same guard",
+        "An operator-first admin built before the customer booking page keeps the build honest; the screen the team lives in gets the design hours",
+        "Drag-to-reschedule feels native only when the optimistic UI commits, the server rejects on conflict, and the client snaps back cleanly with the reason inline",
+        "Seed data named for a real business (Bella's Salon, Pinecrest Clinic) makes the demo land harder than a generic Lorem schedule",
+      ],
+    },
+  },
   ];
 
 export const featuredProjects = projects
