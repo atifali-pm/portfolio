@@ -1523,6 +1523,107 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    slug: "quorum",
+    name: "Quorum",
+    tagline: "AI-native corporate governance: entity graph, AI-drafted resolutions, RAG over corporate documents, agentic filing prep, realtime collaborative editing.",
+    summary:
+      "Quorum treats corporate governance as structured data and treats resolutions, minutes, and filings as documents the system can read, draft, and reason about. Subsidiary ownership lives in a graph the team can actually see. The AI sees every prior resolution in the vault and drafts new ones with citations. An agent compiles filing packets and pauses for human approval before anything goes out.",
+    status: "Live",
+    year: "2026",
+    category: "AI / LegalTech SaaS",
+    featured: false,
+    stack: [
+      "Next.js 14",
+      "TypeScript",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "pgvector",
+      "NextAuth",
+      "Anthropic SDK",
+      "OpenAI",
+      "Langfuse",
+      "React Flow (xyflow)",
+      "Dagre",
+      "Tailwind",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/quorum" },
+    ],
+    banner: "/projects/quorum-banner.jpg",
+    gallery: [
+      { src: "/projects/quorum/00-shell.png", caption: "Phase 0 app shell with tenant model and base UI" },
+      { src: "/projects/quorum/01-entity-graph.png", caption: "Entity graph: parent and subsidiary tree with ownership chains" },
+      { src: "/projects/quorum/02-resolution-drafting.png", caption: "AI resolution drafting with template library and clause retrieval" },
+      { src: "/projects/quorum/03-vault-qa.png", caption: "Document vault RAG Q&A with citations to source paragraphs" },
+    ],
+    hero: {
+      problem:
+        "In-house counsel and entity administrators still run corporate governance out of shared drives, Word templates, and a calendar reminder for each annual filing. Resolutions get drafted from a folder of past resolutions that someone has to remember the name of. Subsidiary ownership lives in a spreadsheet nobody trusts, and filing prep is a manual checklist exercise.",
+      goals: [
+        "Render parent and subsidiary ownership as a live graph rather than a spreadsheet",
+        "Draft board and shareholder resolutions from a natural-language prompt with clause-level retrieval over past resolutions",
+        "Search and ask questions across charters, bylaws, stockholder agreements, and minutes with citations",
+        "Run a filing-prep agent that assembles packets and pauses at a human-in-the-loop approval gate",
+        "Enforce tenant isolation at the database row level with admin, officer, counsel, and viewer roles",
+      ],
+      solution: [
+        "Next.js 14 app with NextAuth, multi-tenant Postgres rows, and Drizzle ORM for the entity, document, and resolution models",
+        "Entity graph CRUD with React Flow plus Dagre auto-layout for the ownership and officer tree",
+        "AI resolution drafting backed by Anthropic and OpenAI with a template library and clause-level RAG over past resolutions",
+        "Document vault with pgvector embeddings, hybrid retrieval, and answer citations linking back to the source paragraph",
+        "Realtime collaborative editor with multi-cursor presence and inline comments so counsel can redline live",
+        "Filing-prep agent that reads entity state, gathers uploads, assembles a packet, and pauses for approval before completion",
+        "Audit log on every state change and Langfuse traces on every model run",
+      ],
+      role: [
+        "Solo architect and engineer, requirements to deploy",
+        "Data model for entities, officers, share ledger, resolutions, documents, and the audit log in Drizzle + Postgres",
+        "Entity graph visualization wired to React Flow with Dagre layout and per-node detail panels",
+        "AI drafting pipeline: clause-level retrieval over past resolutions, template library, model selection between Anthropic and OpenAI",
+        "RAG vault: pgvector embeddings, chunking strategy, hybrid retrieval, citation rendering",
+        "Filing-prep agent with explicit human-in-the-loop checkpoint",
+      ],
+      ui: "A counsel-facing app that looks like a modern SaaS rather than a legal tool. Tailwind, calm dark and light themes, the entity graph as the centerpiece, and a chat-style draft surface for resolutions that always shows where each clause came from.",
+      flows: [
+        {
+          title: "Draft a board resolution",
+          steps: [
+            "Counsel opens the entity, clicks New Resolution",
+            "Types a natural-language prompt (e.g. approve a subsidiary capital injection)",
+            "System retrieves clause-level matches from past resolutions in the vault",
+            "Anthropic or OpenAI drafts the resolution with the matched clauses inline as citations",
+            "Counsel edits in the realtime editor, redlines with co-counsel, and saves a final version into the vault",
+          ],
+        },
+        {
+          title: "Ask the vault",
+          steps: [
+            "User opens the document Q&A panel",
+            "Types a question like what does the stockholder agreement say about pre-emption rights",
+            "pgvector retrieval pulls the top passages across charters, bylaws, agreements, and minutes",
+            "The answer renders with paragraph-level citations linking back to the source document",
+          ],
+        },
+        {
+          title: "Filing-prep agent",
+          steps: [
+            "Compliance calendar surfaces an upcoming filing deadline",
+            "Agent reads the entity state and gathers the required documents",
+            "Assembles a filing packet with a checklist of what is included and what is missing",
+            "Pauses at a human-in-the-loop approval gate before anything is marked complete",
+          ],
+        },
+      ],
+      learnings: [
+        "Treating resolutions as data with structured clauses, not as opaque docx blobs, is what makes clause-level retrieval feel surgical instead of vague",
+        "React Flow plus Dagre handles ownership trees up to a few hundred entities cleanly; beyond that, layered virtualisation is a Phase 6 problem",
+        "An audit log table that records who, what, and when on every state change is cheaper to build on day one than to retrofit later",
+        "Langfuse traces over every AI call (drafting, RAG, agent steps) made debugging the filing-prep agent tractable instead of mystical",
+        "The filing-prep agent feels native because of one design choice: it pauses for human approval rather than auto-submitting anything to a regulator",
+      ],
+    },
+  },
   ];
 
 export const featuredProjects = projects
