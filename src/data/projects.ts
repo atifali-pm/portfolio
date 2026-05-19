@@ -1532,7 +1532,7 @@ export const projects: Project[] = [
     status: "Live",
     year: "2026",
     category: "AI / LegalTech SaaS",
-    featured: false,
+    featured: true,
     stack: [
       "Next.js 14",
       "TypeScript",
@@ -1633,7 +1633,7 @@ export const projects: Project[] = [
     status: "Live",
     year: "2026",
     category: "SaaS / Booking & Scheduling",
-    featured: false,
+    featured: true,
     stack: [
       "Next.js 14",
       "TypeScript",
