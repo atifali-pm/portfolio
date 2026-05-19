@@ -1715,6 +1715,103 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    slug: "orderflow",
+    name: "Orderflow",
+    tagline: "Order management with first-class n8n automation: place an order, watch a workflow run, see the order update itself via signed callbacks.",
+    summary:
+      "Orderflow keeps the order surface inside a Laravel + Livewire app you control, and parks a self-hosted n8n next to it as the automation layer. Every order event fires through n8n via signed webhooks; n8n calls back into the app over a token-protected REST API with idempotency keys. An AutomationLog timeline renders inside the order view so every workflow step is visible to the operator within seconds.",
+    status: "Open source",
+    year: "2026",
+    category: "Order Ops / Workflow Automation",
+    featured: false,
+    stack: [
+      "PHP 8.2",
+      "Laravel 11",
+      "Livewire 3",
+      "Alpine.js",
+      "Tailwind",
+      "DaisyUI",
+      "PostgreSQL 16",
+      "Redis 7",
+      "Horizon",
+      "n8n",
+      "Mailpit",
+      "Pest",
+      "Docker Compose",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/orderflow" },
+    ],
+    banner: "/projects/orderflow-banner.jpg",
+    gallery: [
+      { src: "/projects/orderflow/00-dashboard.png", caption: "Dashboard with KPI tiles, orders-by-status, recent orders, and the live automation activity feed polling every 10s." },
+      { src: "/projects/orderflow/01-orders-index.png", caption: "Orders index with debounced search across reference, invoice number, customer name, and email, plus a status filter." },
+      { src: "/projects/orderflow/02-order-create.png", caption: "Create-order form: pick a customer, add line items, totals recompute live before save." },
+      { src: "/projects/orderflow/03-order-show.png", caption: "Order detail with status-change buttons (Mark paid, Mark shipped, Cancel) that fire the matching domain event." },
+      { src: "/projects/orderflow/04-horizon-dashboard.png", caption: "Horizon supervisor watching the default and n8n queues in autoscaling mode." },
+      { src: "/projects/orderflow/05-horizon-completed.png", caption: "A SyncToN8nJob completing on the n8n queue after a status change." },
+      { src: "/projects/orderflow/06-order-timeline.png", caption: "Order Show with the live automation timeline. Each card is one AutomationLog row written by n8n through the inbound API; the invoice badge comes from a workflow PATCH." },
+      { src: "/projects/orderflow/07-demo.gif", caption: "End-to-end demo: open the dashboard, drill into an order, watch the timeline fill as n8n posts callbacks." },
+    ],
+    hero: {
+      problem:
+        "Most order tools either run pure manual ops in a CRUD UI or push everything through external SaaS automation you cannot inspect. The result: ops teams cannot tell whether a workflow ran, retried, or quietly failed; engineers cannot version or replay the automation; buyers cannot self-host. Orderflow rejects that split and treats the workflow layer as code you control.",
+      goals: [
+        "Keep the order CRUD surface inside a Laravel app the team owns",
+        "Park automation in a self-hosted n8n instance the same team can edit",
+        "Sign every outbound event so n8n can verify Laravel before acting",
+        "Let n8n call back into Laravel safely with token auth and idempotency",
+        "Show every workflow step to the operator inside the order view, no log diving",
+      ],
+      solution: [
+        "Livewire 3 order surface for customers, orders, and line items with live total recompute",
+        "Four domain events (OrderPlaced, OrderPaid, OrderShipped, OrderCancelled) queued through Horizon on a dedicated n8n queue",
+        "WebhookDispatcher with HMAC-SHA256 over deeply sorted-key canonical JSON, sent with X-Orderflow-Event and X-Orderflow-Signature",
+        "Inbound REST API at /api/orders/* behind a token middleware (hash_equals Bearer check) and a Redis-backed idempotency middleware with 24h TTL and X-Idempotency-Replay on cache hits",
+        "AutomationLog model rendered as a polling timeline in the order view; invoice number badge updates from n8n's PATCH within seconds",
+        "Production workflow committed at n8n/workflows/order-placed.json so anyone cloning the repo gets the same round trip",
+        "Whole stack (Laravel, Postgres, Redis, n8n, Mailpit) boots from a single docker-compose, no external hosting to demo",
+      ],
+      role: [
+        "Solo architect and engineer, requirements to deploy",
+        "Domain model (customers, orders, items, automation logs) plus Livewire surfaces and the Horizon queue topology",
+        "Outbound integration: events, listener, SyncToN8nJob, HmacSigner with stable canonical JSON, WebhookDispatcher",
+        "Inbound integration: token middleware, idempotency middleware on Redis, AutomationLog timeline polling",
+        "n8n production workflow JSON, demo seeder, recorded demo gif, Pest suite (45 passing)",
+      ],
+      ui: "An ops-facing Livewire surface in Tailwind plus DaisyUI: dashboard with KPI tiles, an orders list with debounced search, and an order detail page where the automation timeline fills in live as n8n posts callbacks.",
+      flows: [
+        {
+          title: "Order placed, automation round-trips",
+          steps: [
+            "Ops user creates an order in the Livewire UI with line items and totals",
+            "Laravel dispatches OrderPlaced; the listener queues SyncToN8nJob on the n8n queue",
+            "Horizon's worker POSTs the signed payload to the order-placed webhook in n8n",
+            "n8n branches on total (over $500 fires a Slack alert), sends a Mailpit confirmation, generates an invoice number, and PATCHes the order back",
+            "Each step logs to /api/orders/{id}/automation-log; the Livewire order view shows the invoice badge and timeline within seconds",
+          ],
+        },
+        {
+          title: "Inbound API with idempotency",
+          steps: [
+            "n8n calls back into Laravel with Authorization: Bearer and an Idempotency-Key header",
+            "Token middleware compares with hash_equals; mismatch returns 401",
+            "Idempotency middleware checks Redis for the key under orderflow:idempotency:<key>",
+            "On a fresh key the handler runs and the response body, status, and headers cache in Redis for 24h",
+            "A retried n8n execution hits the cache and gets the same body back with X-Idempotency-Replay: true, no double-apply",
+          ],
+        },
+      ],
+      learnings: [
+        "HMAC verification fails the moment two sides serialize JSON differently; deeply sorting keys (while preserving list order) gives n8n a deterministic canonical form to verify",
+        "Idempotency-Key handling belongs in middleware on Redis, not in each controller, so every write endpoint inherits it the moment it's registered",
+        "Horizon with predis ran cleanly once REDIS_CLIENT=predis was set explicitly; relying on phpredis being installed on the host wastes a day",
+        "n8n 2.18 will not register webhook routes for an active workflow until the owner account exists; POST /rest/owner/setup is the one-liner that unblocks headless imports",
+        "A polling Livewire timeline (wire:poll.5s) is the smallest piece of UI that makes the automation feel alive without a websocket dependency",
+      ],
+    },
+  },
   ];
 
 export const featuredProjects = projects
