@@ -1812,6 +1812,94 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    slug: "atrium",
+    name: "Atrium",
+    tagline: "A privacy-first AI assistant workspace. Streaming chat, memory inspection, tool traces, persona switching, voice.",
+    summary:
+      "A front-end-only reference UI for the privacy-first AI assistant category, built so the UX is the hero and every streaming token, tool call, persona switch, and memory mutation runs against a deterministic mock layer. React 18 with TypeScript strict, Tailwind, Zustand, Vitest, and Playwright on a green CI pipeline, with Phases 0 through 2 (scaffold, streaming chat shell, Research Analyst persona with tool traces and memory inspector) shipped.",
+    status: "Live",
+    year: "2026",
+    category: "AI",
+    featured: true,
+    stack: [
+      "React 18",
+      "TypeScript 5.6",
+      "Vite 5",
+      "Tailwind CSS 3",
+      "Zustand 5",
+      "TanStack Query 5",
+      "Framer Motion 11",
+      "Dexie 4",
+      "Vitest 2",
+      "Playwright 1.48",
+      "Storybook 8",
+      "GitHub Actions",
+      "Cloudflare Pages",
+    ],
+    links: [
+      { label: "GitHub", url: "https://github.com/atifali-pm/atrium" },
+      { label: "Live", url: "https://atifali.pages.dev/projects/atrium" },
+    ],
+    banner: "/projects/atrium-banner.jpg",
+    gallery: [
+      { src: "/projects/atrium/01-empty-state-light.png", caption: "Empty state in light theme: persona switcher in the left rail, suggested prompts tuned for the Research Analyst, memory inspector waiting on the right, trace timeline peek bar at the bottom." },
+      { src: "/projects/atrium/02-research-streaming-dark.png", caption: "Mid-stream research with a running tool call in dark theme: the assistant streams while the trace drawer shows a running call." },
+      { src: "/projects/atrium/03-research-complete-dark.png", caption: "Research complete in dark theme: the assistant's brief, the trace peek, and a new fact landed in the memory inspector with its provenance line." },
+      { src: "/projects/atrium/04-trace-expanded-dark.png", caption: "Trace drawer expanded in dark theme with the fetch_url call open, input and output JSON visible; filter pills toggle between all, running, ok, error, and slow-only." },
+      { src: "/projects/atrium/05-persona-menu-light.png", caption: "Persona switcher menu in light theme: Research Analyst active, Code Assistant and Travel Planner visible as Phase 3 stubs." },
+    ],
+    hero: {
+      problem:
+        "The privacy-first AI assistant category is a real 2026 product lane, not a one-vendor experiment. Swisper AI in Zurich, Mistral's Le Chat, and Proton's assistant all share the same UX shape: streaming chat as the front door, a memory surface, tool traces for trust, persona switching, and a visible privacy story. What is missing in the senior React hiring pool is a reference UI that implements the whole shape end to end against a real CI pipeline instead of a slide deck.",
+      goals: [
+        "Ship the full assistant UX shape (chat, memory, traces, personas, voice) as a single coherent product",
+        "Keep the project front-end only so it ships in weeks, not months, and stays a pure FE artifact",
+        "Drive every streaming token, tool call, and memory write through a deterministic mock layer so the UX is the hero",
+        "Hold a real CI gate: typecheck, lint, Vitest, Playwright, build on every push",
+        "Phase the build so each phase is independently demoable",
+      ],
+      solution: [
+        "App shell with top bar, left rail, main column, and a right-side memory inspector that defaults open on large screens",
+        "Design tokens as a TypeScript source of truth with runtime CSS-var injection plus Tailwind theme refs, so light, dark, and system themes share one set of values",
+        "Deterministic SSE simulator with a step-based fixture format (tokens, tool, memory, wait) that doubles as the contract a real backend would have to match",
+        "Research Analyst persona wired end to end with search_web, fetch_url, and summarize, each call landing in the inline trace drawer with input, output, latency, and status",
+        "Memory inspector with per-fact provenance, dedupe by id or key, a forget control, and a purge-all action",
+      ],
+      role: [
+        "Solo architect and engineer from requirements to deploy",
+        "Owner of the design tokens pipeline, mock-layer-as-contract, and CI gates",
+      ],
+      ui: "One opinionated theme in light, dark, and system modes, built from design tokens in TypeScript so the same values drive runtime CSS variables and Tailwind classes; the chat column anchors the layout while the memory inspector and tool trace drawer are first-class surfaces, not overlays.",
+      flows: [
+        {
+          title: "Research Analyst prompt to memory fact",
+          steps: [
+            "User types a research prompt in the composer",
+            "SSE simulator streams tokens into the message list while the trace drawer shows a running tool call",
+            "Tool call completes, latency and status land in the trace timeline",
+            "A new fact appears in the memory inspector with its provenance line",
+            "Forget control on the fact wipes it and re-renders the inspector",
+          ],
+        },
+        {
+          title: "Persona switch",
+          steps: [
+            "User opens the persona menu in the left rail",
+            "Research Analyst is active; Code Assistant and Travel Planner are visible but marked Phase 3",
+            "Switcher silently rejects unavailable personas so a leaked URL cannot drop into a broken state",
+            "Switching personas resets chat, memory, and trace stores together through the chat store",
+          ],
+        },
+      ],
+      learnings: [
+        "Design tokens as TS source of truth plus runtime CSS-var injection is the cleanest way to keep Tailwind, runtime themes, and Storybook in sync",
+        "A step-based fixture format (tokens, tool, memory, wait) doubles as the real backend contract, so Phase 6 swap is a backend job, not a front-end rewrite",
+        "Cross-store reset through the chat store keeps memory, traces, and chat in lockstep without coupling the simulator to any store",
+        "Right panel defaulting open on large screens trades a tiny bit of first-load density for users actually discovering the memory surface",
+      ],
+    },
+  },
   ];
 
 export const featuredProjects = projects
