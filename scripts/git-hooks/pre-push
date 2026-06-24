@@ -48,6 +48,15 @@ export PATH="$HOME/.nvm/versions/node/v22.22.2/bin:$HOME/.local/share/mise/insta
 REPO_ROOT="$(git rev-parse --show-toplevel)"
 cd "$REPO_ROOT"
 
+# Load deploy credentials if present. An API token in .env.deploy (gitignored)
+# does not lapse like the wrangler OAuth login did on 2026-05-25, so headless
+# deploys keep working. Falls back to whatever auth wrangler already has.
+if [ -f "$REPO_ROOT/.env.deploy" ]; then
+  set -a
+  . "$REPO_ROOT/.env.deploy"
+  set +a
+fi
+
 echo "[pre-push] Pushing main to origin; will build + deploy to atifali.pages.dev"
 echo "[pre-push] (1/2) Building Astro site..."
 npm run build
